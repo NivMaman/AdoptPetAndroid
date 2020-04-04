@@ -56,4 +56,18 @@ public class AddPetActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
+    /*
+    *    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+    * */
 }
