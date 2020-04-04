@@ -16,6 +16,7 @@ public class DBWraper {
     TODO: implement the following functions (add a lot logs, pay attention to function failure)
     public static List<Pet> getAllPetsFiltered(Filters filters)
     {
+        final FirebaseFirestore db = FirebaseFirestore.getInstance();
         Query petsCollectionRef  = fireBaseDb.collectionGroup(petsCollectionName);
         TODO: use filters.buildQuery
 
@@ -23,13 +24,19 @@ public class DBWraper {
     }
 
 
-    public static List<Pet> getMyPets()
+    public static List<Pet> getMyPets(FirebaseFirestore db)
     {
+      final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     }
 
     // maybe can fail ==> return boolean
-    public static boolean addNewPet()
+    public static boolean addNewPet(Pet pet)
+    {
+
+    }
+    // maybe can fail ==> return boolean
+    public static boolean editPet(not sure how)
     {
 
     }
@@ -50,7 +57,7 @@ public class DBWraper {
     }
 
     // maybe can fail ==> return boolean
-    public static boolean imageViewSetPictureFromStorage(ImageView imageView, String imagePath)
+    public static boolean imageViewSetPictureFromStorage(ImageView imageView, String storagePath)
     {
 
         // Download directly from StorageReference using Glide

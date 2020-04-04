@@ -41,25 +41,25 @@ public class Pet {
         if(PicturesUriArr.length == 3)
             this.picturesUriArr = PicturesUriArr;
         else {
-            Log.e(this.TAG_LOG, "Pet() — PicturesUriArr.length != 3 ");
+            Log.e(TAG_LOG, "Pet() — PicturesUriArr.length != 3 ");
             this.picturesUriArr = new String[3];
         }
-        Log.d(this.TAG_LOG, "constructing a pet - " + this.toString());
+        Log.d(TAG_LOG, "constructing a pet - " + this.toString());
     }
 
     public Pet(Map<String,Object> map)
     {
-        this.age = (int) map.get(this.AGE_STRING);
-        this.dogOrCat = (Boolean) map.get(this.DOG_OR_CAT_STRING);
-        this.freeText = (String) map.get(this.FREE_TEXT_STRING);
-        this.name = (String) map.get(this.NAME_STRING);
+        this.age = (int) map.get(AGE_STRING);
+        this.dogOrCat = (boolean) map.get(DOG_OR_CAT_STRING);
+        this.freeText = (String) map.get(FREE_TEXT_STRING);
+        this.name = (String) map.get(NAME_STRING);
 
         String[] array = { new String("str1"), new String("str2") };
         this.picturesUriArr = new String[3];
-        this.picturesUriArr[0] = (String) map.get(this.PIC_1_URI_STRING);
-        this.picturesUriArr[1] = (String) map.get(this.PIC_2_URI_STRING);
-        this.picturesUriArr[2] = (String) map.get(this.PIC_3_URI_STRING);
-        Log.d(this.TAG_LOG, "constructing a pet from map - " + this.toString());
+        this.picturesUriArr[0] = (String) map.get(PIC_1_URI_STRING);
+        this.picturesUriArr[1] = (String) map.get(PIC_2_URI_STRING);
+        this.picturesUriArr[2] = (String) map.get(PIC_3_URI_STRING);
+        Log.d(TAG_LOG, "constructing a pet from map - " + this.toString());
 
     }
 
@@ -67,16 +67,16 @@ public class Pet {
     {
         Map<String,Object> map = new HashMap<>();
 
-        map.put(this.AGE_STRING,this.age);
-        map.put(this.DOG_OR_CAT_STRING,this.age);
-        map.put(this.FREE_TEXT_STRING,this.age);
-        map.put(this.NAME_STRING,this.age);
+        map.put(AGE_STRING,this.age);
+        map.put(DOG_OR_CAT_STRING,this.age);
+        map.put(FREE_TEXT_STRING,this.age);
+        map.put(NAME_STRING,this.age);
 
-        map.put(this.PIC_1_URI_STRING,this.age);
-        map.put(this.PIC_2_URI_STRING,this.age);
-        map.put(this.PIC_3_URI_STRING,this.age);
+        map.put(PIC_1_URI_STRING,this.age);
+        map.put(PIC_2_URI_STRING,this.age);
+        map.put(PIC_3_URI_STRING,this.age);
 
-        Log.d(this.TAG_LOG, "createMap - " + this.toString());
+        Log.d(TAG_LOG, "createMap - " + this.toString());
 
         return map;
     }
@@ -94,7 +94,7 @@ public class Pet {
     }
 
     public void setFreeText(String freeText) {
-        freeText = freeText;
+        this.freeText = freeText;
     }
 
     public String getName() {
