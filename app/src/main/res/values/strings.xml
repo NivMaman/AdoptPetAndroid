@@ -14,6 +14,9 @@
     <string name="title_activity_profile">Firebase</string>
     <string name="title_activity_login">Sign in</string>
     <string name="hint_email">Email</string>
+    <string name="age">Age</string>
+    <string name="add_db">Add to database</string>
+    <string name="pet_kind">Pet Kind</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Fullname</string>
     <string name="btn_login">LOGIN</string>
