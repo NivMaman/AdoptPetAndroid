@@ -3,6 +3,7 @@ package com.example.adoptpet;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,13 +16,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class DBWraper {
     //string definitions
@@ -31,7 +31,7 @@ public class DBWraper {
     static FirebaseStorage storage = FirebaseStorage.getInstance();
     static StorageReference storageReference = storage.getReference();
 
-
+/*
     //TODO: implement the following functions (add a lot logs, pay attention to function failure)
     public static List<Pet> getAllPetsFiltered(Filters filters)
     {
@@ -43,11 +43,14 @@ public class DBWraper {
     }
 
 
+
+
     public static List<Pet> getMyPets(FirebaseFirestore db)
     {
-      final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     }
+
+ */
 
     // maybe can fail ==> return boolean
     public static void addNewPet(Pet pet, FirebaseUser user, final Context context)
@@ -67,7 +70,7 @@ public class DBWraper {
                     }
                 });
     }
-
+/*
     // maybe can fail ==> return boolean
     public static boolean editPet(not sure how)
     {
@@ -82,17 +85,20 @@ public class DBWraper {
 
      // maybe can fail ==> return boolean
      // set storagePath after upload
+
+ */
     public static Uri uploadPicture(Uri filePath , final Context context)
     {
         final Uri[] storageUri = new Uri[1];
-        final StorageReference ref = storageReference.child("images/");
         if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
 
-            UploadTask uploadTask= ref.putFile(filePath);
-            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
+            UploadTask  uploadTask = ref.putFile(filePath);
+            Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot,
+                                Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     if (!task.isSuccessful()) {
@@ -106,17 +112,20 @@ public class DBWraper {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if (task.isSuccessful()) {
+                        progressDialog.dismiss();
                         storageUri[0] = task.getResult();
-                    } else {
-                        // Handle failures
-                        // ...
+                        Log.i("Upload url", storageUri[0].toString());
+                        Toast.makeText(context, "Uploaded", Toast.LENGTH_SHORT).show();
+
                     }
-                }
-            });
+            }
+        });
         }
 
-    }
+        return storageUri[0];
 
+    }
+/*
     // maybe can fail ==> return boolean
     public static boolean imageViewSetPictureFromStorage(ImageView imageView, String storagePath)
     {
@@ -133,5 +142,7 @@ public class DBWraper {
     {
 
     }
+
+ */
 
 }
