@@ -25,7 +25,7 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_name"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/darker_gray" />
+                android:textColorHint="@android:color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -40,7 +40,7 @@
                 android:hint="@string/age"
                 android:inputType="number"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/darker_gray" />
+                android:textColorHint="@android:color/white" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -52,15 +52,61 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:hint="@string/pet_kind"
-                android:inputType="textPassword"
+                android:inputType="text"
                 android:textColor="@android:color/white"
-                android:textColorHint="@android:color/darker_gray" />
+                android:textColorHint="@android:color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Login Button -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/free_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:hint="@string/free_text"
+                android:inputType="text"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4sp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+
+            <ImageButton
+                android:id="@+id/add_pic"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginLeft="4sp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_add_24px" />
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4sp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_add_24px" />
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="4sp"
+                android:layout_weight="1"
+                android:src="@drawable/ic_add_24px" />
+
+
+        </LinearLayout>
 
         <Button
-            android:id="@+id/add_db_botton"
+            android:id="@+id/add_db"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"

@@ -11,9 +11,9 @@ import java.util.Map;
 public class Pet {
     private String name;
     private int age;
-    private boolean dogOrCat; // True = Dog, False = Cat
+    private String kind;
     private String freeText;
-    private String [] picturesUriArr;
+    private Uri[] picturesUriArr;
 
 
     // general definitions
@@ -23,7 +23,7 @@ public class Pet {
 
     //String definitions
     private static final String AGE_STRING = "age";
-    private static final String DOG_OR_CAT_STRING = "dogOrCat";
+    private static final String KIND_STRING = "dogOrCat";
     private static final String FREE_TEXT_STRING = "freeText";
     private static final String NAME_STRING = "name";
     private static final String PIC_1_URI_STRING = "picture1Uri";
@@ -33,32 +33,31 @@ public class Pet {
 
 
 
-    public Pet(String name, int age, boolean dogOrCat, String FreeText, String [] PicturesUriArr) {
+    public Pet(String name, int age, String kind, String FreeText, Uri [] PicturesUriArr) {
         this.name = name;
         this.age = age;
-        this.dogOrCat = dogOrCat;
+        this.kind = kind;
         this.freeText = FreeText;
         if(PicturesUriArr.length == 3)
             this.picturesUriArr = PicturesUriArr;
         else {
             Log.e(TAG_LOG, "Pet() — PicturesUriArr.length != 3 ");
-            this.picturesUriArr = new String[3];
+            this.picturesUriArr = new Uri[3];
         }
         Log.d(TAG_LOG, "constructing a pet - " + this.toString());
     }
 
-    public Pet(Map<String,Object> map)
+    public Pet (Map<String,Object> map)
     {
         this.age = (int) map.get(AGE_STRING);
-        this.dogOrCat = (boolean) map.get(DOG_OR_CAT_STRING);
+        this.kind = (String) map.get(KIND_STRING);
         this.freeText = (String) map.get(FREE_TEXT_STRING);
         this.name = (String) map.get(NAME_STRING);
 
-        String[] array = { new String("str1"), new String("str2") };
-        this.picturesUriArr = new String[3];
-        this.picturesUriArr[0] = (String) map.get(PIC_1_URI_STRING);
-        this.picturesUriArr[1] = (String) map.get(PIC_2_URI_STRING);
-        this.picturesUriArr[2] = (String) map.get(PIC_3_URI_STRING);
+        this.picturesUriArr = new Uri[3];
+        this.picturesUriArr[0] = (Uri) map.get(PIC_1_URI_STRING);
+        this.picturesUriArr[1] = (Uri) map.get(PIC_2_URI_STRING);
+        this.picturesUriArr[2] = (Uri) map.get(PIC_3_URI_STRING);
         Log.d(TAG_LOG, "constructing a pet from map - " + this.toString());
 
     }
@@ -68,23 +67,21 @@ public class Pet {
         Map<String,Object> map = new HashMap<>();
 
         map.put(AGE_STRING,this.age);
-        map.put(DOG_OR_CAT_STRING,this.age);
-        map.put(FREE_TEXT_STRING,this.age);
+        map.put(KIND_STRING,this.kind);
+        map.put(FREE_TEXT_STRING,this.freeText);
         map.put(NAME_STRING,this.age);
-
-        map.put(PIC_1_URI_STRING,this.age);
-        map.put(PIC_2_URI_STRING,this.age);
-        map.put(PIC_3_URI_STRING,this.age);
+        map.put(PIC_1_URI_STRING,this.picturesUriArr[0]);
+        map.put(PIC_2_URI_STRING,this.picturesUriArr[1]);
+        map.put(PIC_3_URI_STRING,this.picturesUriArr[2]);
 
         Log.d(TAG_LOG, "createMap - " + this.toString());
-
         return map;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return "age = " + this.age + "dogOrCat = " + this.dogOrCat +
+        return "age = " + this.age + "dogOrCat = " + this.kind +
         "freeText = " + this.freeText + "name = " + this.name + "picturesUriArr[0] = " + this.picturesUriArr[0] +
                 "picturesUriArr[1] = " + this.picturesUriArr[1] + "picturesUriArr[2] = " + this.picturesUriArr[2];
     }
@@ -113,20 +110,22 @@ public class Pet {
         this.age = age;
     }
 
-    public boolean isDogOrCat() {
-        return dogOrCat;
+    public String getKind() {
+        return kind;
     }
 
-    public void setDogOrCat(boolean dogOrCat) {
-        this.dogOrCat = dogOrCat;
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
-    public String[] getPicturesUriArr() {
+    public Uri[] getPicturesUriArr() {
         return this.picturesUriArr;
     }
 
-    public void setPicturesUriArr(String[] picturesUriArr) {
+    public void setPicturesUriArr(Uri[] picturesUriArr) {
         this.picturesUriArr = picturesUriArr;
     }
 
 }
+
+
