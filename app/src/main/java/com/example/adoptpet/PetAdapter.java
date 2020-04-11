@@ -16,8 +16,9 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
     private List<Pet> petList;
     private Context context;
 
-    public PetAdapter(List<Pet> petList, Context context) {
-        this.petList = petList;
+    public PetAdapter(Filters filters, Context context) {
+        //TODO: remove comment
+        //this.petList = getAllPetsFiltered(filters);
         this.context = context;
     }
 
@@ -35,7 +36,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
         holder.txtDogOrCat.setText( petList.get(position).getAge() );
         holder.txtKind.setText( petList.get(position).getAge() );
         holder.txtName.setText( petList.get(position).getAge() );
-        //DBWraper.imageViewSetPictureFromStorage(holder.imageView, petList.get(position).getPicturesUriArr()[0] );
+        //TODO - DBWraper.imageViewSetPictureFromStorage(holder.image);
 
     }
 
@@ -48,8 +49,9 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
         return petList;
     }
 
-    public void setPetList(List<Pet> petList) {
-        this.petList = petList;
+    public void setNewFilters(Filters filters) {
+        // TODO: remove comment
+        //this.petList = getAllPetsFiltered(filters);
         this.notifyDataSetChanged();
     }
 }

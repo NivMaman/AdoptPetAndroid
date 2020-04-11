@@ -1,5 +1,8 @@
 package com.example.adoptpet;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.Query;
+
 public class Filters {
 
     private int minAge;
@@ -70,12 +73,13 @@ public class Filters {
     }
 
 
-    /*
-    TODO: how to build  a query correctly ??????
-    public query buildQuery()
-    {
 
-    }*/
+    public Query buildQuery(Query query)
+    {
+        //TODO: replace with defines of fields!
+        //TODO: build more fields queries
+        return query.whereLessThan("age",this.maxAge).whereGreaterThan("age",this.minAge);
+    }
 
 
 
