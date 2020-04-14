@@ -1,10 +1,9 @@
 package com.example.adoptpet;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
 public class AddPetActivity extends AppCompatActivity {
 
@@ -23,7 +22,7 @@ public class AddPetActivity extends AppCompatActivity {
     private FirebaseUser user;
     private Button addToDb;
     private ImageButton pic1;
-    private Uri filePath1;
+    private ArrayList<Uri> imagePathList;
     private final int PICK_IMAGE_REQUEST = 71;
 
     @Override
@@ -40,7 +39,10 @@ public class AddPetActivity extends AppCompatActivity {
         pic1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseImage();
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
             }
         });
 
@@ -52,37 +54,36 @@ public class AddPetActivity extends AppCompatActivity {
                 int petAge = Integer.parseInt(age.getText().toString());
                 String petKind = kind.getText().toString();
                 String freeText = "free test";
-                Uri storagePath1 = DBWraper.uploadPicture(filePath1,AddPetActivity.this);
-                Uri[] picturesArray =  {storagePath1};
+                ArrayList<String> picturesArray =  new ArrayList<String>();
                 Pet pet = new Pet(name, petAge, petKind, freeText, picturesArray);
-                DBWraper.addNewPet(pet, user, AddPetActivity.this);
+                DBWraper.addNewPet(pet, user, imagePathList, AddPetActivity.this);
             }
         });
-    }
-
-
-    private void chooseImage() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null )
+                && data != null)
         {
-            filePath1 = data.getData();
+            imagePathList = new ArrayList<>();
 
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath1);
+            if(data.getClipData() != null){
+                Log.i("in clip data", "");
+                int count = data.getClipData().getItemCount();
+                for (int i=0; i<count; i++){
+
+                    Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                    imagePathList.add(imageUri);
+                }
             }
-            catch (IOException e)
-            {
-                e.printStackTrace();
+            else if(data.getData() != null){
+                Log.i("in clip data", "");
+                Uri imgUri = data.getData();
+                imagePathList.add(imgUri);
             }
+            else Log.i("in clip data error", "");
         }
-    }
+        }
 
 }
