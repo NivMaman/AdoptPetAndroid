@@ -5,9 +5,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -29,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class DBWraper {
+public class DBWrapper {
     //string definitions
     public static final String petsCollectionName     = "petsCollection";
     public static final String fireBaseCollectionName = "appCollection";
@@ -57,17 +55,15 @@ public class DBWraper {
                 {
                     for (QueryDocumentSnapshot document : task.getResult())
                     {
-
                         petList.add(new Pet (document.getData()));
                     }
-
                     Log.d(DBWraperLogTag," getMyPets - read complete" + petList.toString());
                     ret[0] = true;
 
                 }
                 else
                 {
-                Log.d(DBWraperLogTag, "getMyPets - Error getting documents: ", task.getException());
+                Log.e(DBWraperLogTag, "getMyPets - Error getting documents: ", task.getException());
                 ret[0] = false;
                 }
             }
@@ -105,8 +101,6 @@ public class DBWraper {
                 }
             }
         });
-
-
         if(ret[0])
         {
             return petList;
@@ -121,10 +115,7 @@ public class DBWraper {
     // maybe can fail ==> return boolean
     public static void addNewPet(final Pet pet, final FirebaseUser user, ArrayList<Uri> imagePathList, final Context context)
     {
-        final ProgressDialog progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Uploading .... ");
-        progressDialog.show();
-
+        final ProgressDialog progressDialog = getProgressDialog(context);
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Pictures");
         final List<Uri> clonedImageList = new ArrayList<>(imagePathList);
 
@@ -133,57 +124,80 @@ public class DBWraper {
         List<Task<Uri>> uploadedImageUrlTasks = new ArrayList<>(imageListSize);
         for (Uri imageUri : clonedImageList) {
             final String imageFilename = UUID.randomUUID().toString();
-            Log.d("upload.onClick()", "Starting upload for \"" + imageFilename + "\"...");
+            Log.d(DBWraperLogTag, "Starting upload for \"" + imageFilename + "\"...");
             final StorageReference imageRef = storageReference.child(imageFilename);
-            UploadTask currentUploadTask = imageRef.putFile(imageUri);
+            final UploadTask currentUploadTask = imageRef.putFile(imageUri);
             Task<Uri> currentUrlTask = currentUploadTask
-                    .continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                        @Override
-                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful()) {
-                                Log.d("upload.onClick()", "Upload for \"" + imageFilename + "\" failed!");
-                                throw task.getException();
-                            }
-
-                            Log.d("upload.onClick()", "Upload for \"" + imageFilename + "\" finished. Fetching download URL...");
-                            return imageRef.getDownloadUrl();
-                        }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful()) {
-                                String pathReference = task.getResult().toString();
-                                pet.addUriReference(pathReference);
-                            } else {
-                            }
-                        }
-                    });
+                    .continueWithTask(getContinuation(imageFilename, imageRef)).addOnCompleteListener(getTaskOnCompleteListener(pet));
             uploadedImageUrlTasks.add(currentUrlTask);
         }
         Tasks.whenAllSuccess(uploadedImageUrlTasks)
-                .addOnCompleteListener(new OnCompleteListener <List<Object>>() {
+                .addOnCompleteListener(addPetCompleteListener(pet, user, context, progressDialog, imageListSize));
+    }
 
-                    @Override
-                    public void onComplete(@NonNull Task<List<Object>> task) {
-                        if (task.getResult().size() == imageListSize){// upload all sucessfully
-                            Map<String,Object> map = pet.createMap();
-                            db.collection(collectionUsers).document(user.getUid()).collection(collectionPets).add(map)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Toast.makeText(context, "addNewPet - Added pet to db", Toast.LENGTH_LONG).show();
-                                            progressDialog.dismiss();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(Exception e) {
-                                            Toast.makeText(context, "addNewPet - Failed adding new pet" + e.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-                    }
-                }});
+    private static OnCompleteListener<List<Object>> addPetCompleteListener(final Pet pet, final FirebaseUser user, final Context context, final ProgressDialog progressDialog, final int imageListSize) {
+        return new OnCompleteListener<List<Object>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<Object>> task) {
+                if (task.getResult().size() == imageListSize){
+                    Log.d(DBWraperLogTag, "All Tasks uploaded succesfully");
+                    Map<String,Object> map = pet.createMap();
+                    db.collection(collectionUsers).document(user.getUid()).collection(collectionPets).add(map)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(context, "addNewPet - Added pet to db", Toast.LENGTH_LONG).show();
+                                    Log.i(DBWraperLogTag, "Add new pet to db succesfully");
+                                    progressDialog.dismiss();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(Exception e) {
+                                    Toast.makeText(context, "addNewPet - Failed adding new pet" + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    Log.e(DBWraperLogTag, "Add new pet to db faild" + e.getMessage());
+                                    e.printStackTrace();
+                                }
+                            });
+            }
+        }};
+    }
 
+    private static OnCompleteListener<Uri> getTaskOnCompleteListener(final Pet pet) {
+        return new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    String pathReference = task.getResult().toString();
+                    pet.addUriReference(pathReference);
+                    Log.i(DBWraperLogTag, "Added path reference to pet");
+                } else {
+                    Log.e(DBWraperLogTag, "Upload task failed!  \"" + task.getException());
+                }
+            }
+        };
+    }
+
+    private static Continuation<UploadTask.TaskSnapshot, Task<Uri>> getContinuation(final String imageFilename, final StorageReference imageRef) {
+        return new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    Log.e(DBWraperLogTag, "Upload for \"" + imageFilename + "\" failed!");
+                    throw task.getException();
+                }
+
+                Log.d(DBWraperLogTag, "Upload for \"" + imageFilename + "\" finished. Fetching download URL...");
+                return imageRef.getDownloadUrl();
+            }
+        };
+    }
+
+    private static ProgressDialog getProgressDialog(Context context) {
+        final ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Uploading .... ");
+        progressDialog.show();
+        return progressDialog;
     }
 /*
     public static boolean editPet(DocumentReference documentReference, Pet editedPet, FirebaseUser user, final Context context)
@@ -238,51 +252,8 @@ public class DBWraper {
 
         return ret[0];
     }
- */
 
-     public static void uploadPicture(Pet pet, ArrayList<Uri> imagePaths , final Context context)
-     {
-         final ArrayList<Uri> dbPaths = new ArrayList<Uri>();
-        final boolean ret[] = new boolean[1];
-        if (imagePaths != null) {
-            final ProgressDialog progressDialog = new ProgressDialog(context);
-            progressDialog.setTitle("Uploading...");
-            progressDialog.show();
-            for (Uri path : imagePaths){
-                final StorageReference ref = storageReference.child("images/"+ UUID.randomUUID().toString());
-                UploadTask uploadTask = ref.putFile(path);
-                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot,
-                        Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
 
-                        // Continue with the task to get the download URL
-                        return ref.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        if (task.isSuccessful()) {
-                            progressDialog.dismiss();
-                            dbPaths.add(task.getResult());
-                            Log.i(DBWraperLogTag, " uploadPicture - upload picture complete successfully " + dbPaths.get(0).toString());
-                            Toast.makeText(context, "Uploaded", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Log.w(DBWraperLogTag, " uploadPicture - upload picture failed  ");
-                            Toast.makeText(context, "upload picture failed!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
-
-        }
-    }
-
-/*
     public static void imageViewSetPictureFromStorage(ImageView imageView, String storagePath)
     {
         Picasso.get().load(storagePath).into(imageView);
