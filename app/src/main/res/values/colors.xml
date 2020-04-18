@@ -16,4 +16,7 @@
     <color name="btn_login_bg">#eceef1</color>
     <color name="lbl_name">#333333</color>
     <color name="btn_logut_bg">#ff6861</color>
+
+    <color name="recycler_item_cat_bg">#00BCD4</color>
+    <color name="recycler_item_dog_bg">#F0214EF3</color>
 </resources>

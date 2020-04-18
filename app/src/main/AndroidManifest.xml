@@ -12,11 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddPetActivity"></activity>
+        <activity android:name=".AddPetActivity"/>
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".MyPetsActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".extendedPetViewActivity"
+            android:theme="@style/AppDialogTheme" />
+
         <activity android:name=".SignupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +33,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity
+
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
