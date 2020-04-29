@@ -2,6 +2,7 @@ package com.example.adoptpet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -63,6 +64,7 @@ public class PetViewHolder extends RecyclerView.ViewHolder implements View.OnCli
     @Override
     public void onClick(View v) {
         Context myContext = v.getContext();
+        Log.i("Context:", myContext.toString());
         Intent intent = new Intent(myContext,ExtendedPetViewActivity.class);
         intent.putExtra(petExtraKey, this.pet);
         myContext.startActivity(intent);

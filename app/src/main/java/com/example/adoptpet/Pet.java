@@ -35,8 +35,8 @@ public class Pet implements Serializable {
     private static final String NAME_MAP_KEY = "name";
     private static final String AGE_MAP_KEY = "age";
     private static final String DOG_OR_CAT_MAP_KEY = "dogOrCat";
-    private static final String IS_MALE_MAP_KEY = "freeText";
-    private static final String LOCATION_MAP_KEY= "picturesList";
+    private static final String IS_MALE_MAP_KEY = "sex";
+    private static final String LOCATION_MAP_KEY= "location";
     private static final String PHONE_NUMBER_MAP_KEY= "phoneNumber";
     private static final String CONTACT_NAME_MAP_KEY= "contactName";
     private static final String KIND_MAP_KEY= "kind";
@@ -63,6 +63,7 @@ public class Pet implements Serializable {
     public Pet (Map<String,Object> map)
     {
         this.name            = (String)  map.get(NAME_MAP_KEY);
+        Log.i(TAG_LOG, "pet name: " + this.name);
         this.age             = (long)    map.get(AGE_MAP_KEY);
         this.dogOrCat        = (String) map.get(DOG_OR_CAT_MAP_KEY);
         this.sex             = (String) map.get(IS_MALE_MAP_KEY);
@@ -71,9 +72,8 @@ public class Pet implements Serializable {
         this.contactName     = (String)  map.get(CONTACT_NAME_MAP_KEY);
         this.kind            = (String)  map.get(KIND_MAP_KEY);
         this.freeText        = (String)  map.get(FREE_TEXT_MAP_KEY);
-        this.picturesUriStringList = ((ArrayList<String>)map.get(PIC_LIST_MAP_KEY));
-
         Log.d(TAG_LOG, "constructing a pet from map - " + this.toString());
+        this.picturesUriStringList = ((ArrayList<String>)map.get(PIC_LIST_MAP_KEY));
 
     }
 
@@ -152,7 +152,7 @@ public class Pet implements Serializable {
     public Uri genderIconUri()
     {
         int drawable;
-        if(isMale)
+        if(isMale())
         {
             //male
             drawable = R.drawable.male_icon;

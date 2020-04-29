@@ -1,6 +1,5 @@
 package com.example.adoptpet;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,8 +37,6 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
     private final String FREE_TEXT_TXT_PREFIX = "location - ";
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,16 +53,10 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
 
         exitButton = (ImageButton)findViewById(R.id.exitButton);
         sliderView = (SliderView)findViewById(R.id.imageSlider);
-
         ImageSliderAdapter imageAdapter = new ImageSliderAdapter(this);
         sliderView.setSliderAdapter(imageAdapter);
         sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
-
-
-
-
-
 
         Pet pet = (Pet) getIntent().getSerializableExtra(PetViewHolder.petExtraKey);
 
