@@ -15,8 +15,8 @@ import java.util.Map;
 public class Pet implements Serializable {
     private String  name; //Must
     private long    age; //Must
-    private boolean dogOrCat; //Must true = cat, false = dog
-    private boolean isMale; //Must
+    private String dogOrCat; //Must
+    private String sex; //Must
     private String  location;//Must
     private String  phoneNumber;//Must
     private String  contactName;//Must
@@ -25,7 +25,6 @@ public class Pet implements Serializable {
 
     private ArrayList<String> picturesUriStringList;// not a Must -- use add if needed
     private DocumentReference documentReference;
-
 
     // general definitions
     private static final int PICTURES_URI_ARR_LENGTH = 3;
@@ -45,11 +44,11 @@ public class Pet implements Serializable {
     private static final String PIC_LIST_MAP_KEY= "picturesList";
 
 
-    public Pet(String name, long age, boolean dogOrCat, boolean isMale, String location, String phoneNumber, String contactName) {
+    public Pet(String name, long age, String dogOrCat, String sex, String location, String phoneNumber, String contactName) {
         this.name = name;
         this.age = age;
         this.dogOrCat = dogOrCat;
-        this.isMale = isMale;
+        this.sex = sex;
         this.location = location;
         this.phoneNumber = phoneNumber;
         this.contactName = contactName;
@@ -65,8 +64,8 @@ public class Pet implements Serializable {
     {
         this.name            = (String)  map.get(NAME_MAP_KEY);
         this.age             = (long)    map.get(AGE_MAP_KEY);
-        this.dogOrCat        = (boolean) map.get(DOG_OR_CAT_MAP_KEY);
-        this.isMale          = (boolean) map.get(IS_MALE_MAP_KEY);
+        this.dogOrCat        = (String) map.get(DOG_OR_CAT_MAP_KEY);
+        this.sex             = (String) map.get(IS_MALE_MAP_KEY);
         this.location        = (String)  map.get(LOCATION_MAP_KEY);
         this.phoneNumber     = (String)  map.get(PHONE_NUMBER_MAP_KEY);
         this.contactName     = (String)  map.get(CONTACT_NAME_MAP_KEY);
@@ -85,7 +84,7 @@ public class Pet implements Serializable {
         map.put(NAME_MAP_KEY        ,this.name);
         map.put(AGE_MAP_KEY         ,this.age);
         map.put(DOG_OR_CAT_MAP_KEY  ,this.dogOrCat);
-        map.put(IS_MALE_MAP_KEY     ,this.isMale);
+        map.put(IS_MALE_MAP_KEY     ,this.sex);
         map.put(LOCATION_MAP_KEY    ,this.location);
         map.put(PHONE_NUMBER_MAP_KEY,this.phoneNumber);
         map.put(CONTACT_NAME_MAP_KEY,this.contactName);
@@ -101,7 +100,7 @@ public class Pet implements Serializable {
     @Override
     public String toString() {
         return " age = " + this.age + " dogOrCat = " + this.dogOrCat +
-                " isMale = " + this.isMale + " location = " + this.location +" phoneNumber = "+ this.phoneNumber + " contactName = " + this.contactName
+                " sex = " + this.sex + " location = " + this.location +" phoneNumber = "+ this.phoneNumber + " contactName = " + this.contactName
                 + " freeText = " + this.freeText + " name = " + this.name +" picturesUriStringList = "+ this.picturesUriStringList + " freeText = " + this.freeText;
     }
 
@@ -117,7 +116,7 @@ public class Pet implements Serializable {
         {
             //defaults pictures
             int drawable;
-            if(dogOrCat)
+            if(dogOrCat.equals("Dog"))
             {
                 //dog
                 drawable = R.drawable.dog_default;
@@ -151,9 +150,18 @@ public class Pet implements Serializable {
     }
 
     public boolean isCat() {
-        return dogOrCat;
+        if(dogOrCat.equals("Dog")){
+            return false;
+        }
+        return true;
     }
-    public boolean isDog() { return !dogOrCat; }
+
+    public boolean isDog() {
+        if(dogOrCat.equals("Dog")){
+            return true;
+        }
+        return false;
+    }
 
     public DocumentReference getDocumentReference() {
         return documentReference;
@@ -163,20 +171,11 @@ public class Pet implements Serializable {
         this.documentReference = documentReference;
     }
 
-    public boolean isDogOrCat() {
-        return dogOrCat;
-    }
-
-    public void setDogOrCat(boolean dogOrCat) {
-        this.dogOrCat = dogOrCat;
-    }
-
     public boolean isMale() {
-        return isMale;
-    }
-
-    public void setMale(boolean male) {
-        this.isMale = male;
+        if(sex.equals("Male")){
+            return true;
+        }
+        return false;
     }
 
     public String getLocation() {

@@ -15,6 +15,8 @@
     <string name="title_activity_login">Sign in</string>
     <string name="hint_email">Email</string>
     <string name="age">Age</string>
+    <string name="contact_number">Contact number</string>
+    <string name="contact_name">Contact name</string>
     <string name="free_text">Description</string>
     <string name="add_db">Add to database</string>
     <string name="pet_kind">Pet Kind</string>
@@ -34,4 +36,7 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="my_pets">My pets</string>
+    <string name="add_pet">Add pet</string>
+    <string name="home">Home</string>
 </resources>

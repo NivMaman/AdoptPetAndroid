@@ -27,7 +27,6 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white" />
         </com.google.android.material.textfield.TextInputLayout>
-
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -42,16 +41,80 @@
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white" />
         </com.google.android.material.textfield.TextInputLayout>
+        <RadioGroup
+            android:id="@+id/pet_kind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_above="@+id/view_below"
+            android:layout_marginVertical="4sp">
+
+            <RadioButton
+                android:id="@+id/dog"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Dog" />
+
+            <RadioButton
+                android:id="@+id/cat"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+
+                android:text="Cat" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/pet_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_above="@+id/view_below"
+            android:layout_marginVertical="4sp">
+
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/contact_number"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/contact_number"
+            android:inputType="number"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/pet_kind"
+                android:id="@+id/contact_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/pet_kind"
+                android:hint="@string/contact_name"
                 android:inputType="text"
                 android:textColor="@android:color/white"
                 android:textColorHint="@android:color/white" />
@@ -72,35 +135,30 @@
                 android:textColorHint="@android:color/white" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <AutoCompleteTextView
+            android:id="@+id/actv"
+            android:hint="Location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/cities"
+            android:completionThreshold="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
             android:layout_marginRight="4sp"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:orientation="horizontal">
 
 
             <ImageButton
                 android:id="@+id/add_pic"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginLeft="4sp"
+                android:layout_width="wrap_content"
+                android:layout_height="90dp"
+                android:layout_marginVertical="4sp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_add_24px" />
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4sp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_add_24px" />
-
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="4sp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_add_24px" />
+                android:src="@drawable/ic_add_a_photo_black_24dp" />
 
 
         </LinearLayout>
@@ -115,4 +173,16 @@
             android:textColor="@android:color/black" />
 
     </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/navigationBar"
+        app:itemBackground="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemIconTint="@menu/selector"
+        app:itemTextColor="@menu/selector"
+        app:menu="@menu/navigation">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 </androidx.constraintlayout.widget.ConstraintLayout>

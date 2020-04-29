@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.storage.StorageReference;
-
 import java.util.List;
 
 public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
@@ -32,13 +30,17 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
+        /*
         holder.txtAge.setText( petList.get(position).getAge() );
         holder.txtDogOrCat.setText( petList.get(position).getAge() );
         holder.txtKind.setText( petList.get(position).getAge() );
         holder.txtName.setText( petList.get(position).getAge() );
+
+         */
         //TODO - DBWraper.imageViewSetPictureFromStorage(holder.image);
 
     }
+
 
     @Override
     public int getItemCount() {

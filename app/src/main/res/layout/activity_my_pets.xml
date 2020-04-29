@@ -6,4 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".MyPetsActivity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/navigationBar"
+        app:itemBackground="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemIconTint="@menu/selector"
+        app:itemTextColor="@menu/selector"
+        app:menu="@menu/navigation">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
