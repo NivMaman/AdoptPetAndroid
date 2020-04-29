@@ -32,9 +32,11 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
     private final String AGE_TXT_PREFIX = "age - ";
     private final String NAME_TXT_PREFIX = "name - ";
     private final String LOCATION_TXT_PREFIX = "location - ";
-    private final String CONTACT_NAME_TXT_PREFIX = "location - ";
-    private final String PHONE_NUM_TXT_PREFIX = "location - ";
-    private final String FREE_TEXT_TXT_PREFIX = "location - ";
+    private final String CONTACT_NAME_TXT_PREFIX = "contact name - ";
+    private final String PHONE_NUM_TXT_PREFIX = "phone number - ";
+    private final String FREE_TEXT_TXT_PREFIX = "description - ";
+    private final String KIND_TXT_PREFIX = "kind - ";
+
 
 
     @Override
@@ -50,6 +52,7 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
         txtPhoneNumber = (TextView)findViewById(R.id.ext_view_txt_phone_number);
         txtFreeText = (TextView)findViewById(R.id.ext_view_txt_free_text);
         txtKind = (TextView)findViewById(R.id.ext_view_txt_kind);
+        imgGender = (ImageView) findViewById(R.id.ext_view_img_gender);
 
         exitButton = (ImageButton)findViewById(R.id.exitButton);
         sliderView = (SliderView)findViewById(R.id.imageSlider);
@@ -62,12 +65,13 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
 
         imageAdapter.renewItems(pet.getPicturesUriArr());
         DBWrapper.imageViewLoadUri(imgGender,pet.genderIconUri());
-        txtName.setText(pet.getName());
-        txtAge.setText("" + pet.getAge());
-        txtLocation.setText(pet.getLocation());
-        txtContact.setText(pet.getContactName());
-        txtFreeText.setText(pet.getFreeText());
-        txtKind.setText(pet.getKind());
+        txtName.setText(NAME_TXT_PREFIX +pet.getName());
+        txtAge.setText(AGE_TXT_PREFIX + pet.getAge());
+        txtLocation.setText(LOCATION_TXT_PREFIX + pet.getLocation());
+        txtContact.setText(CONTACT_NAME_TXT_PREFIX + pet.getContactName());
+        txtFreeText.setText(FREE_TEXT_TXT_PREFIX + pet.getFreeText());
+        txtKind.setText(KIND_TXT_PREFIX + pet.getKind());
+        txtPhoneNumber.setText(PHONE_NUM_TXT_PREFIX + pet.getPhoneNumber());
 
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
