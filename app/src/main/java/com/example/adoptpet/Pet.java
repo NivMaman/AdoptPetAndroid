@@ -150,6 +150,22 @@ public class Pet implements Serializable {
         }
     }
 
+    public Uri genderIconUri()
+    {
+        int drawable;
+        if(isMale)
+        {
+            //male
+            drawable = R.drawable.male_icon;
+        }
+        else
+        {
+            //female
+            drawable = R.drawable.female_icon;
+        }
+        return Uri.parse("android.resource://com.example.adoptpet/" + drawable);
+    }
+
     public boolean isCat() {
         return dogOrCat;
     }

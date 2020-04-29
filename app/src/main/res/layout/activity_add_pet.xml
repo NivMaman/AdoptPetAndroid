@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/name"
+                android:id="@+id/ext_view_txt_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/age"
+                android:id="@+id/view_holder_txt_age"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/free_text"
+                android:id="@+id/ext_view_txt_free_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
