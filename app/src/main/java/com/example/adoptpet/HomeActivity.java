@@ -6,6 +6,8 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -41,9 +43,11 @@ public class HomeActivity extends AppCompatActivity {
                 return false;
             }
         });
-        //recyclerView = findViewById(R.id.recycler_view);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //petAdapter = new PetAdapter(new Filters(),this);
-        //recyclerView.setAdapter(petAdapter);
+
+        // set up the RecyclerView
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        petAdapter = new PetAdapter(new Filters(),this);
+        recyclerView.setAdapter(petAdapter);
     }
 }
