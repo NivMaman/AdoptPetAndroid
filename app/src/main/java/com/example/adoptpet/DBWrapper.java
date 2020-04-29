@@ -7,6 +7,15 @@ import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.Continuation;
+
+import android.media.MediaDataSource;
+import android.net.Uri;
+import android.util.Log;
+import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +35,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 public class DBWrapper {
     //string definitions
@@ -40,12 +63,8 @@ public class DBWrapper {
     public static final String collectionPets  = "Pets";
 
     //TODO: implement the following functions (add a lot logs, pay attention to function failure)
-    public static List<Pet> getAllPetsFiltered(Filters filters)
+    public static void getAllPetsFiltered(Filters filters, final PetAdapter petAdapter)
     {
-        final List<Pet> petList = new ArrayList<>();
-        final boolean ret[] = new boolean[1];
-
-
         Query collectionGroup = db.collectionGroup(collectionPets);
         Query query = filters.buildQuery(collectionGroup);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -53,62 +72,49 @@ public class DBWrapper {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful())
                 {
+                    List<Pet> petList = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult())
                     {
                         petList.add(new Pet (document.getData()));
                     }
                     Log.d(DBWraperLogTag," getMyPets - read complete" + petList.toString());
-                    ret[0] = true;
+                    petAdapter.setPetList(petList);
 
                 }
                 else
                 {
-                Log.e(DBWraperLogTag, "getMyPets - Error getting documents: ", task.getException());
-                ret[0] = false;
+                    //TODO - raise toast
+                    Log.e(DBWraperLogTag, "getMyPets - Error getting documents: ", task.getException());
                 }
             }
         });
-        if(ret[0])
-        {
-            return petList;
-        }
-        else
-        {
-            return null;
-        }
     }
 
 
 
-    public static List<Pet> getMyPets(FirebaseFirestore db, String userId)
+    public static void getMyPets(final PetAdapter petAdapter, String userId)
     {
-        final List<Pet> petList = new ArrayList<>();
-        final boolean ret[] = new boolean[1];
+        List<Pet> petList = new ArrayList<>();
 
         db.collection(collectionUsers).document(userId).collection(collectionPets).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    List<Pet> petList = new ArrayList<>();
+                    Pet pet;
                     for (QueryDocumentSnapshot document : task.getResult()) {
-
+                        pet = new Pet (document.getData());
+                        pet.setDocumentReference(document.getReference());
                         petList.add(new Pet (document.getData()));
+
                     }
+                    petAdapter.setPetList(petList);
                     Log.d(DBWraperLogTag," getMyPets - read complete" + petList.toString());
-                    ret[0] = true;
                 } else {
                     Log.d(DBWraperLogTag, "getMyPets - Error getting documents: ", task.getException());
-                    ret[0] = false;
                 }
             }
         });
-        if(ret[0])
-        {
-            return petList;
-        }
-        else
-        {
-            return null;
-        }
     }
 
 
@@ -253,11 +259,14 @@ public class DBWrapper {
         return ret[0];
     }
 
-
-    public static void imageViewSetPictureFromStorage(ImageView imageView, String storagePath)
+*/
+    public static void imageViewLoadUri(ImageView imageView, Uri uri)
     {
-        Picasso.get().load(storagePath).into(imageView);
+        final int radius = 5;
+        final int margin = 5;
+        final Transformation transformation = new RoundedCornersTransformation(radius, margin);
+        Picasso.get().load(uri).transform(transformation).fit().into(imageView);
     }
 
-*/
+
 }

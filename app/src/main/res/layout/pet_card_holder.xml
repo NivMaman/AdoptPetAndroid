@@ -1,66 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pet_layout"
     android:layout_width="200dp"
-    android:layout_height="200dp"
-    android:orientation="vertical"
-    android:id="@+id/pet_layout">
+    android:layout_height="300dp">
+
+    <ImageView
+        android:id="@+id/view_holder_img_pet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/small_dimen"
+        android:layout_marginTop="@dimen/small_dimen"
+        android:layout_marginEnd="@dimen/small_dimen"
+        android:layout_marginBottom="@dimen/big_dimen"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/view_holder_txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#2D1B1B1B"
+        android:gravity="center"
+        android:text="name"
+        android:textSize="17sp"
+
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/view_holder_img_pet" />
+
+    <TextView
+        android:id="@+id/view_holder_txt_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="age - 5"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/view_holder_txt_name" />
+
+    <TextView
+        android:id="@+id/view_holder_txt_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="location - haifa"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/view_holder_txt_age" />
+
+    <ImageView
+        android:id="@+id/view_holder_img_gender"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:srcCompat="@drawable/cat_default" />
 
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/pet_image"
-                android:layout_width="match_parent"
-                android:layout_height="100dp" />
-
-            <TextView
-                android:id="@+id/pet_name"
-                android:layout_width="70dp"
-                android:layout_height="20dp"
-                android:layout_margin="@dimen/small_dimen"
-                android:text="defualt"
-                android:textSize="17sp"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintStart_toStartOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/pet_image" />
-
-            <TextView
-                android:id="@+id/pet_age"
-                android:layout_width="70dp"
-                android:layout_height="20dp"
-                android:layout_margin="@dimen/small_dimen"
-                android:text="ppkkp"
-                android:textSize="17sp"
-                card_view:layout_constraintBottom_toTopOf="@+id/pet_kind"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/pet_name" />
-
-            <TextView
-                android:id="@+id/pet_dog_or_cat"
-                android:layout_width="70dp"
-                android:layout_height="20dp"
-                android:layout_margin="@dimen/small_dimen"
-                android:text="defualt"
-                card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/pet_kind" />
-
-            <TextView
-                android:id="@+id/pet_kind"
-                android:layout_width="73dp"
-                android:layout_height="15dp"
-                android:layout_margin="@dimen/small_dimen"
-                android:text="defualt"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/pet_age" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

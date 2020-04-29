@@ -31,7 +31,7 @@ public class SignupActivity extends AppCompatActivity {
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
-            startActivity(new Intent(SignupActivity.this, AddPetActivity.class));
+            startActivity(new Intent(SignupActivity.this, HomeActivity.class));
             finish();
         }
 

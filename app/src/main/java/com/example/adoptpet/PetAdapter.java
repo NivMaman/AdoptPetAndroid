@@ -1,22 +1,30 @@
 package com.example.adoptpet;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
+
+
     private List<Pet> petList;
     private Context context;
 
     public PetAdapter(Filters filters, Context context) {
-        //TODO: remove comment
-        //this.petList = getAllPetsFiltered(filters);
+        this.petList = new ArrayList<>();
+        DBWrapper.getAllPetsFiltered(filters,this);
         this.context = context;
     }
 
@@ -30,17 +38,16 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
-        /*
-        holder.txtAge.setText( petList.get(position).getAge() );
-        holder.txtDogOrCat.setText( petList.get(position).getAge() );
-        holder.txtKind.setText( petList.get(position).getAge() );
-        holder.txtName.setText( petList.get(position).getAge() );
+        Pet pet = petList.get(position);
+        holder.bindNewPet(pet);
+        int currentColor;
+        if(pet.isCat())
+            currentColor = ContextCompat.getColor(context, R.color.recycler_item_cat_bg);
+        else
+            currentColor = ContextCompat.getColor(context, R.color.recycler_item_dog_bg);
 
-         */
-        //TODO - DBWraper.imageViewSetPictureFromStorage(holder.image);
-
+        holder.getLayout().setBackgroundColor(currentColor);
     }
-
 
     @Override
     public int getItemCount() {
@@ -51,9 +58,15 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
         return petList;
     }
 
-    public void setNewFilters(Filters filters) {
-        // TODO: remove comment
-        //this.petList = getAllPetsFiltered(filters);
+    public void setPetList(List<Pet> petList)
+    {
+        this.petList = petList;
         this.notifyDataSetChanged();
     }
+
+    public void setNewFilters(Filters filters)
+    {
+       DBWrapper.getAllPetsFiltered(filters,this);
+    }
+
 }
