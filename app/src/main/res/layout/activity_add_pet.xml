@@ -6,183 +6,261 @@
     android:layout_height="match_parent"
     tools:context=".AddPetActivity">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin"
-        tools:ignore="MissingConstraints">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/hint_name"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/age"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/age"
-                android:inputType="number"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <RadioGroup
-            android:id="@+id/pet_kind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_above="@+id/view_below"
-            android:layout_marginVertical="4sp">
-
-            <RadioButton
-                android:id="@+id/dog"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Dog" />
-
-            <RadioButton
-                android:id="@+id/cat"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-
-                android:text="Cat" />
-        </RadioGroup>
-
-        <RadioGroup
-            android:id="@+id/pet_sex"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_above="@+id/view_below"
-            android:layout_marginVertical="4sp">
-
-            <RadioButton
-                android:id="@+id/male"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="Male" />
-
-            <RadioButton
-                android:id="@+id/female"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="Female" />
-        </RadioGroup>
-
-        <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/contact_number"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:hint="@string/contact_number"
-            android:inputType="number"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/contact_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/contact_name"
-                android:inputType="text"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/free_text"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/free_text"
-                android:inputType="text"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <AutoCompleteTextView
-            android:id="@+id/actv"
-            android:hint="Location"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_below="@+id/cities"
-            android:completionThreshold="1"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="4sp"
-            android:orientation="horizontal">
-
-
-            <ImageButton
-                android:id="@+id/add_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="90dp"
-                android:layout_marginVertical="4sp"
-                android:layout_weight="1"
-                android:src="@drawable/ic_add_a_photo_black_24dp" />
-
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/add_db"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@color/white"
-            android:text="@string/add_db"
-            android:textColor="@android:color/black" />
-
-    </LinearLayout>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
         android:id="@+id/navigationBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:itemBackground="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:itemIconTint="@menu/selector"
         app:itemTextColor="@menu/selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
         app:menu="@menu/navigation">
-
     </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/navigationBar"
+        android:background="@color/colorPrimary">
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/hint_name"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/age"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/age"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:id="@+id/pet_kind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/view_below"
+                android:layout_marginVertical="4sp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/dog"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="Dog" />
+
+                <RadioButton
+                    android:id="@+id/cat"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:text="Cat" />
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/pet_sex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/view_below"
+                android:layout_marginVertical="4sp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/male"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:text="Male" />
+
+                <RadioButton
+                    android:id="@+id/female"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Female" />
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/pet_kind_edit_txt"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/pet_kind"
+                    android:inputType="text"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/contact_number"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/contact_number"
+                    android:inputType="number"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/contact_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/contact_name"
+                    android:inputType="text"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/free_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:hint="@string/free_text"
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
+                    android:gravity="top|left"
+                    android:lines="5"
+                    android:textColor="@android:color/white"
+
+                    android:textColorHint="@android:color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cities"
+                android:layout_marginBottom="10dp"
+                android:completionThreshold="1"
+                android:hint="Location" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="4sp"
+                android:orientation="horizontal">
+
+
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="4sp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/pictureView1"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/pictureView2"
+                    />
+                <ImageView
+                    android:id="@+id/pictureView2"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintEnd_toStartOf="@+id/pictureView3"
+                    app:layout_constraintStart_toEndOf="@+id/pictureView1"
+                    />
+                <ImageView
+                    android:id="@+id/pictureView3"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/pictureView2"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="4sp"
+                android:orientation="horizontal">
+
+
+                <ImageButton
+                    android:id="@+id/add_pic"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginVertical="4sp"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_add_a_photo_black_24dp" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add_db"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dip"
+                android:background="@color/white"
+                android:text="@string/add_db"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="@dimen/small_dimen"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
