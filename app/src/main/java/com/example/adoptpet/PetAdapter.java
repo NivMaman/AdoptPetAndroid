@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
@@ -22,9 +23,8 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
     private List<Pet> petList;
     private Context context;
 
-    public PetAdapter(Filters filters, Context context) {
+    public PetAdapter(Context context) {
         this.petList = new ArrayList<>();
-        DBWrapper.getAllPetsFiltered(filters,this);
         this.context = context;
     }
 
@@ -39,7 +39,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
         Pet pet = petList.get(position);
-        holder.bindNewPet(pet);
+        holder.bindNewPet(pet,position,this);
         int currentColor;
         if(pet.isCat())
             currentColor = ContextCompat.getColor(context, R.color.recycler_item_cat_bg);
@@ -64,9 +64,13 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
         this.notifyDataSetChanged();
     }
 
-    public void setNewFilters(Filters filters)
+    public void readPetsFromDbByFilter(Filters filters)
     {
        DBWrapper.getAllPetsFiltered(filters,this);
+    }
+    public void readMyPetsFromDb(String userId)
+    {
+        DBWrapper.getMyPets(this, userId);
     }
 
 }

@@ -63,7 +63,8 @@ public class HomeActivity extends AppCompatActivity {
         // set up the RecyclerView
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        petAdapter = new PetAdapter(new Filters(),this);
+        petAdapter = new PetAdapter(this);
+        petAdapter.readPetsFromDbByFilter(new Filters());
         recyclerView.setAdapter(petAdapter);
     }
 }

@@ -57,5 +57,22 @@
         card_view:layout_constraintEnd_toEndOf="parent"
         card_view:srcCompat="@drawable/cat_default" />
 
+    <ImageButton
+        android:id="@+id/view_holder_button_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <ImageButton
+        android:id="@+id/view_holder_button_remove"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:srcCompat="@drawable/com_facebook_tooltip_black_xout" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,9 +14,9 @@ import java.util.Map;
 
 public class Pet implements Serializable {
     private String  name; //Must
-    private long    age; //Must
-    private String dogOrCat; //Must
-    private String sex; //Must
+    private double  age; //Must
+    private String  dogOrCat; //Must
+    private String  sex; //Must
     private String  location;//Must
     private String  phoneNumber;//Must
     private String  contactName;//Must
@@ -24,7 +24,7 @@ public class Pet implements Serializable {
     private String  freeText; // not a Must -- use set if needed
 
     private ArrayList<String> picturesUriStringList;// not a Must -- use add if needed
-    private DocumentReference documentReference;
+    private String documentReferenceStr;
 
     // general definitions
     private static final int PICTURES_URI_ARR_LENGTH = 3;
@@ -44,7 +44,7 @@ public class Pet implements Serializable {
     private static final String PIC_LIST_MAP_KEY= "picturesList";
 
 
-    public Pet(String name, long age, String dogOrCat, String sex, String location, String phoneNumber, String contactName) {
+    public Pet(String name, double age, String dogOrCat, String sex, String kind, String freeText, String location, String phoneNumber, String contactName) {
         this.name = name;
         this.age = age;
         this.dogOrCat = dogOrCat;
@@ -52,6 +52,8 @@ public class Pet implements Serializable {
         this.location = location;
         this.phoneNumber = phoneNumber;
         this.contactName = contactName;
+        this.kind = kind;
+        this.freeText = freeText;
 
         this.picturesUriStringList = new ArrayList<>();
 
@@ -64,7 +66,7 @@ public class Pet implements Serializable {
     {
         this.name            = (String)  map.get(NAME_MAP_KEY);
         Log.i(TAG_LOG, "pet name: " + this.name);
-        this.age             = (long)    map.get(AGE_MAP_KEY);
+        this.age             = (double)  map.get(AGE_MAP_KEY);
         this.dogOrCat        = (String) map.get(DOG_OR_CAT_MAP_KEY);
         this.sex             = (String) map.get(IS_MALE_MAP_KEY);
         this.location        = (String)  map.get(LOCATION_MAP_KEY);
@@ -134,6 +136,10 @@ public class Pet implements Serializable {
     {
         ArrayList<Uri> picturesUriConverter = new ArrayList<>();
         Uri converter;
+
+        //takes default picture if no pictures added by user
+        if(picturesUriStringList.size()== 0)
+            picturesUriConverter.add(getMainPictureUri());
         for (String uri : this.picturesUriStringList)
         {
             converter = Uri.parse(uri);
@@ -179,12 +185,16 @@ public class Pet implements Serializable {
         return false;
     }
 
-    public DocumentReference getDocumentReference() {
-        return documentReference;
+    public String getDocumentReferenceStr() {
+        return documentReferenceStr;
     }
 
-    public void setDocumentReference(DocumentReference documentReference) {
-        this.documentReference = documentReference;
+    public void setDocumentReferenceStr(String documentReferenceStr) {
+        this.documentReferenceStr = documentReferenceStr;
+    }
+    public DocumentReference getDocumentReference()
+    {
+        return DBWrapper.db.document(this.documentReferenceStr);
     }
 
     public boolean isMale() {
@@ -233,11 +243,11 @@ public class Pet implements Serializable {
         this.name = name;
     }
 
-    public long getAge() {
+    public double getAge() {
         return this.age;
     }
 
-    public void setAge(long age) {
+    public void setAge(double age) {
         this.age = age;
     }
 

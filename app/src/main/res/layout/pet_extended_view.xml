@@ -129,5 +129,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pet_extended_card_view" />
 
+    <ImageButton
+        android:id="@+id/ext_view_button_whats"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_home_black_24dp" />
+
+    <ImageButton
+        android:id="@+id/ext_view_button_call"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ext_view_button_whats"
+        app:srcCompat="@android:drawable/sym_call_outgoing" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
