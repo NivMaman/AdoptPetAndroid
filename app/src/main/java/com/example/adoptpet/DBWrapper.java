@@ -102,6 +102,7 @@ public class DBWrapper {
     }
 
     // maybe can fail ==> return boolean
+
     public static void addNewPet(final Pet pet, final FirebaseUser user, ArrayList<Uri> imagePathList, final Context context)
     {
         final ProgressDialog progressDialog = getProgressDialog(context);
