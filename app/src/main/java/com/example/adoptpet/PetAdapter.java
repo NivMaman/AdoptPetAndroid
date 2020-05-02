@@ -67,10 +67,12 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
     public void readPetsFromDbByFilter(Filters filters)
     {
        DBWrapper.getAllPetsFiltered(filters,this);
+        this.notifyDataSetChanged();
     }
     public void readMyPetsFromDb(String userId)
     {
         DBWrapper.getMyPets(this, userId);
+        this.notifyDataSetChanged();
     }
 
 }
