@@ -104,7 +104,7 @@ public class DBWrapper {
                     Pet pet;
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         pet = new Pet (document.getData());
-                        pet.setDocumentReference(document.getReference());
+                        pet.setDocumentReferenceStr(document.getReference().getPath());
                         petList.add(pet);
 
                     }

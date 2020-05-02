@@ -24,7 +24,7 @@ public class Pet implements Serializable {
     private String  freeText; // not a Must -- use set if needed
 
     private ArrayList<String> picturesUriStringList;// not a Must -- use add if needed
-    private DocumentReference documentReference;
+    private String documentReferenceStr;
 
     // general definitions
     private static final int PICTURES_URI_ARR_LENGTH = 3;
@@ -185,12 +185,16 @@ public class Pet implements Serializable {
         return false;
     }
 
-    public DocumentReference getDocumentReference() {
-        return documentReference;
+    public String getDocumentReferenceStr() {
+        return documentReferenceStr;
     }
 
-    public void setDocumentReference(DocumentReference documentReference) {
-        this.documentReference = documentReference;
+    public void setDocumentReferenceStr(String documentReferenceStr) {
+        this.documentReferenceStr = documentReferenceStr;
+    }
+    public DocumentReference getDocumentReference()
+    {
+        return DBWrapper.db.document(this.documentReferenceStr);
     }
 
     public boolean isMale() {
