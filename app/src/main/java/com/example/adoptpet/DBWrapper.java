@@ -105,7 +105,7 @@ public class DBWrapper {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         pet = new Pet (document.getData());
                         pet.setDocumentReference(document.getReference());
-                        petList.add(new Pet (document.getData()));
+                        petList.add(pet);
 
                     }
                     petAdapter.setPetList(petList);
@@ -205,45 +205,37 @@ public class DBWrapper {
         progressDialog.show();
         return progressDialog;
     }
-/*
-    public static boolean editPet(DocumentReference documentReference, Pet editedPet, FirebaseUser user, final Context context)
-    {
-        boolean ret = false;
-        //TODO: maybe retry when fail??
-        if(removePet(documentReference))
-        {
-            if(addNewPet(editedPet, user, context))
-            {
-                Log.d(DBWraperLogTag, "editPet - pet successfully edited !");
-                ret = true;
-            }
-            else
-            {
-                Log.e(DBWraperLogTag, "editPet - Error pet had been deleted but not added");
-                ret = false;
-            }
-        }
-        else
-        {
-            Log.e(DBWraperLogTag, "editPet - Error pet remove failed");
-            ret = false;
-        }
 
-        return ret;
+    public static void editPet(DocumentReference documentReference, final Pet editedPet,final FirebaseUser user,final ArrayList<Uri> imagePathList ,final Context context)
+    {
+
+        documentReference.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(DBWraperLogTag, "editPet - pet successfully deleted!");
+                        addNewPet(editedPet, user,imagePathList, context);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(DBWraperLogTag, "editPet - Error deleting document", e);
+                        Toast.makeText(context, "Edit Pet Failure", Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 
 
-    public static boolean removePet(DocumentReference documentReference)
+    public static void removePet(DocumentReference documentReference)
     {
         //TODO : remove picture from storage
-        final boolean[] ret = new boolean[1];
         documentReference.delete()
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(DBWraperLogTag, "removePet - pet successfully deleted!");
-                ret[0] = true;
                 //TODO: raise toast
             }
         })
@@ -251,15 +243,12 @@ public class DBWrapper {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.w(DBWraperLogTag, "removePet - Error deleting document", e);
-                ret[0] = false;
                 //TODO: raise toast
             }
         });
-
-        return ret[0];
     }
 
-*/
+
     public static void imageViewLoadUri(ImageView imageView, Uri uri)
     {
         final int radius = 5;

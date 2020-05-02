@@ -6,16 +6,34 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MyPetsActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
+    private RecyclerView recyclerView;
+    private PetAdapter petAdapter;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_pets);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        // set up the RecyclerView
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        petAdapter = new PetAdapter(this);
+        petAdapter.readMyPetsFromDb(user.getUid());
+        recyclerView.setAdapter(petAdapter);
+
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigationBar);
         bottomNavigationView.setSelectedItemId(R.id.my_pets);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -39,5 +57,9 @@ public class MyPetsActivity extends AppCompatActivity {
             }
         });
 
+    }
+    public void RefreshMyPetsList()
+    {
+        petAdapter.readMyPetsFromDb(user.getUid());
     }
 }

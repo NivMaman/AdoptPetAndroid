@@ -18,6 +18,7 @@
         <activity android:name=".MyPetsActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".EditPetActivity" />
         <activity
             android:name=".ExtendedPetViewActivity"
             android:theme="@style/AppDialogTheme" />

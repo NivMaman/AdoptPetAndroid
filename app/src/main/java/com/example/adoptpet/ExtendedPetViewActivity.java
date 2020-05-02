@@ -1,7 +1,10 @@
 package com.example.adoptpet;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Printer;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
@@ -25,6 +28,8 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
     private TextView txtKind;
     private SliderView sliderView;
     private ImageView imgGender;
+    private ImageButton callButton;
+    private ImageButton whatsappButton;
 
 
     // string constant definitions
@@ -53,7 +58,8 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
         txtFreeText = (TextView)findViewById(R.id.ext_view_txt_free_text);
         txtKind = (TextView)findViewById(R.id.ext_view_txt_kind);
         imgGender = (ImageView) findViewById(R.id.ext_view_img_gender);
-
+        callButton = (ImageButton)findViewById(R.id.ext_view_button_call);
+        whatsappButton = (ImageButton)findViewById(R.id.ext_view_button_whats);
         exitButton = (ImageButton)findViewById(R.id.exitButton);
         sliderView = (SliderView)findViewById(R.id.imageSlider);
         ImageSliderAdapter imageAdapter = new ImageSliderAdapter(this);
@@ -61,7 +67,7 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
         sliderView.setIndicatorAnimation(IndicatorAnimations.WORM);
         sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
 
-        Pet pet = (Pet) getIntent().getSerializableExtra(PetViewHolder.petExtraKey);
+        final Pet pet = (Pet) getIntent().getSerializableExtra(PetViewHolder.petExtraKey);
 
         imageAdapter.renewItems(pet.getPicturesUriArr());
         DBWrapper.imageViewLoadUri(imgGender,pet.genderIconUri());
@@ -69,9 +75,13 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
         txtAge.setText(AGE_TXT_PREFIX + pet.getAge());
         txtLocation.setText(LOCATION_TXT_PREFIX + pet.getLocation());
         txtContact.setText(CONTACT_NAME_TXT_PREFIX + pet.getContactName());
-        txtFreeText.setText(FREE_TEXT_TXT_PREFIX + pet.getFreeText());
+        txtFreeText.setText(FREE_TEXT_TXT_PREFIX + pet.getFreeText());//TODO: check on null
         txtKind.setText(KIND_TXT_PREFIX + pet.getKind());
         txtPhoneNumber.setText(PHONE_NUM_TXT_PREFIX + pet.getPhoneNumber());
+
+
+
+
 
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +89,24 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        whatsappButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(
+                                "https://wa.me/972"+pet.getPhoneNumber()+"?text=Hello,%20interested%20in%20your%20pet")));
+            }
+        });
+        callButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + pet.getPhoneNumber()));
+                v.getContext().startActivity(intent);
+            }
+        });
+
 
 
 
