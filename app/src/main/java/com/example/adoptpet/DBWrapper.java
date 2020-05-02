@@ -4,18 +4,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.Continuation;
-
-import android.media.MediaDataSource;
-import android.net.Uri;
-import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -30,23 +24,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -117,15 +101,16 @@ public class DBWrapper {
         });
     }
 
-
     // maybe can fail ==> return boolean
     public static void addNewPet(final Pet pet, final FirebaseUser user, ArrayList<Uri> imagePathList, final Context context)
     {
         final ProgressDialog progressDialog = getProgressDialog(context);
         final StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Pictures");
-        final List<Uri> clonedImageList = new ArrayList<>(imagePathList);
-
-        imagePathList.clear();
+        final List<Uri> clonedImageList = new ArrayList<>();
+        if (imagePathList != null){
+            clonedImageList.addAll(imagePathList);
+            imagePathList.clear();
+        }
         final int imageListSize = clonedImageList.size();
         List<Task<Uri>> uploadedImageUrlTasks = new ArrayList<>(imageListSize);
         for (Uri imageUri : clonedImageList) {
@@ -262,8 +247,8 @@ public class DBWrapper {
 */
     public static void imageViewLoadUri(ImageView imageView, Uri uri)
     {
-        final int radius = 5;
-        final int margin = 5;
+        final int radius = 20;
+        final int margin = 8;
         final Transformation transformation = new RoundedCornersTransformation(radius, margin);
         Picasso.get().load(uri).transform(transformation).fit().into(imageView);
     }
