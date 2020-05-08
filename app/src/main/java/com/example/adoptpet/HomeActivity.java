@@ -19,6 +19,7 @@ public class HomeActivity extends AppCompatActivity {
     private PetAdapter petAdapter;
     private BottomNavigationView bottomNavigationView;
     private Toolbar toolBar;
+    private final int GET_FILTERS = 72;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +32,10 @@ public class HomeActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), FiltersActivity.class));
-                finish();
+                startActivityForResult(new Intent(getApplicationContext(), FiltersActivity.class), 72);
+
             }
         });
-
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigationBar);
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -66,5 +66,14 @@ public class HomeActivity extends AppCompatActivity {
         petAdapter = new PetAdapter(this);
         petAdapter.readPetsFromDbByFilter(new Filters());
         recyclerView.setAdapter(petAdapter);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == GET_FILTERS && resultCode == RESULT_OK && data != null){
+            Filters filters = (Filters) data.getSerializableExtra("Filters");
+            petAdapter.readPetsFromDbByFilter(filters);
+        }
     }
 }
