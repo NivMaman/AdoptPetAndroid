@@ -225,7 +225,10 @@ public class AddPetActivity extends AppCompatActivity {
 
         }
     }
-
+    public void navigateToHomeActivity()
+    {
+        bottomNavigationView.setSelectedItemId(R.id.home);
+    }
 }
 
 

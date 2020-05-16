@@ -1,10 +1,17 @@
 package com.example.adoptpet;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 
+import java.util.ArrayList;
+
 public class EditPetActivity extends AddPetActivity {
+
+    private final String logTagClass = "EditPetActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +53,16 @@ public class EditPetActivity extends AddPetActivity {
         super.addToDb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for(int i=0;i<imagePathList.size();i++)
+                {
+                    Log.i(logTagClass,"uri " + imagePathList.get(i).toString());
+                    if(imagePathList.get(i).toString().contains("https://"))
+                    {
+                        imagePathList.remove(i);
+                    }
 
+                }
+                Log.i(logTagClass,"imagePathList.size() = " + imagePathList.size());
                 DBWrapper.editPet(originalPet.getDocumentReference(),CollectPetInfo(), user, imagePathList, EditPetActivity.this);
             }
         });

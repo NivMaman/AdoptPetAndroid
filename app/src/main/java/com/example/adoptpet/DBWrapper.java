@@ -141,6 +141,15 @@ public class DBWrapper {
                                     Toast.makeText(context, "addNewPet - Added pet to db", Toast.LENGTH_LONG).show();
                                     Log.i(DBWraperLogTag, "Add new pet to db succesfully");
                                     progressDialog.dismiss();
+                                    if(context instanceof EditPetActivity)
+                                    {
+                                        ((EditPetActivity)context).finish();
+                                    }
+                                    else if(context instanceof AddPetActivity)
+                                    {
+                                        ((AddPetActivity)context).navigateToHomeActivity();
+                                    }
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -149,6 +158,11 @@ public class DBWrapper {
                                     Toast.makeText(context, "addNewPet - Failed adding new pet" + e.getMessage(), Toast.LENGTH_LONG).show();
                                     Log.e(DBWraperLogTag, "Add new pet to db faild" + e.getMessage());
                                     e.printStackTrace();
+                                    progressDialog.dismiss();
+                                    if(context instanceof EditPetActivity)
+                                    {
+                                        ((EditPetActivity)context).finish();
+                                    }
                                 }
                             });
             }
@@ -194,7 +208,6 @@ public class DBWrapper {
 
     public static void editPet(DocumentReference documentReference, final Pet editedPet,final FirebaseUser user,final ArrayList<Uri> imagePathList ,final Context context)
     {
-
         documentReference.delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
