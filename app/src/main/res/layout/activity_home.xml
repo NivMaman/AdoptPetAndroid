@@ -10,7 +10,7 @@
         android:id="@+id/products_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/grad_bg"
         app:layout_collapseMode="pin"
         app:titleTextColor="@android:color/white"
         app:layout_constraintTop_toTopOf="parent">
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/navigationBar"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@drawable/grad_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:itemIconTint="@menu/selector"
         app:itemTextColor="@menu/selector"

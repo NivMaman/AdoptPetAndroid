@@ -18,8 +18,10 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PetAdapter petAdapter;
     private BottomNavigationView bottomNavigationView;
+    private  ImageButton button;
     private Toolbar toolBar;
     private final int GET_FILTERS = 72;
+    private boolean isFiltered = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,21 @@ public class HomeActivity extends AppCompatActivity {
         toolBar = (Toolbar) findViewById(R.id.products_toolbar);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        final ImageButton button = (ImageButton) findViewById(R.id.toolbar_button);
+        button = (ImageButton) findViewById(R.id.toolbar_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(getApplicationContext(), FiltersActivity.class), 72);
-                button.setImageResource(R.drawable.ic_delete_forever_black_24dp);
+                if (!isFiltered){
+                    startActivityForResult(new Intent(getApplicationContext(), FiltersActivity.class), 72);
+                }
+                else{
+                    Filters filters = new Filters();
+                    petAdapter.readPetsFromDbByFilter(filters);
+                    isFiltered = !isFiltered;
+                    button.setImageResource(R.drawable.ic_filter_list_black_24dp);
+                }
+
+
 
             }
         });
@@ -75,6 +86,8 @@ public class HomeActivity extends AppCompatActivity {
         if(requestCode == GET_FILTERS && resultCode == RESULT_OK && data != null){
             Filters filters = (Filters) data.getSerializableExtra("Filters");
             petAdapter.readPetsFromDbByFilter(filters);
+            button.setImageResource(R.drawable.ic_delete_forever_black_24dp);
+            isFiltered = !isFiltered;
         }
     }
 }
