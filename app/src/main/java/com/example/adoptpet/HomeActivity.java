@@ -28,11 +28,12 @@ public class HomeActivity extends AppCompatActivity {
         toolBar = (Toolbar) findViewById(R.id.products_toolbar);
         setSupportActionBar(toolBar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ImageButton button = (ImageButton) findViewById(R.id.toolbar_button);
+        final ImageButton button = (ImageButton) findViewById(R.id.toolbar_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(getApplicationContext(), FiltersActivity.class), 72);
+                button.setImageResource(R.drawable.ic_delete_forever_black_24dp);
 
             }
         });
