@@ -3,11 +3,13 @@ package com.example.adoptpet;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,11 +18,25 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PetAdapter petAdapter;
     private BottomNavigationView bottomNavigationView;
+    private Toolbar toolBar;
+    private final int GET_FILTERS = 72;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        toolBar = (Toolbar) findViewById(R.id.products_toolbar);
+        setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ImageButton button = (ImageButton) findViewById(R.id.toolbar_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(getApplicationContext(), FiltersActivity.class), 72);
+
+            }
+        });
+
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigationBar);
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -50,5 +66,14 @@ public class HomeActivity extends AppCompatActivity {
         petAdapter = new PetAdapter(this);
         petAdapter.readPetsFromDbByFilter(new Filters());
         recyclerView.setAdapter(petAdapter);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == GET_FILTERS && resultCode == RESULT_OK && data != null){
+            Filters filters = (Filters) data.getSerializableExtra("Filters");
+            petAdapter.readPetsFromDbByFilter(filters);
+        }
     }
 }

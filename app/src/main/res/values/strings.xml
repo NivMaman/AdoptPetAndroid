@@ -19,7 +19,10 @@
     <string name="contact_name">Contact name</string>
     <string name="free_text">Description</string>
     <string name="add_db">Add to database</string>
+    <string name="apply">Apply filters</string>
     <string name="pet_kind">Pet Kind</string>
+    <string name="location">Location</string>
+    <string name="gender">Gender</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Pet name</string>
     <string name="btn_login">LOGIN</string>

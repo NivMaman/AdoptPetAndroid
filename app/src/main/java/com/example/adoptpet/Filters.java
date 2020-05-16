@@ -1,16 +1,17 @@
 package com.example.adoptpet;
 
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.Query;
 
-public class Filters {
+import java.io.Serializable;
+
+public class Filters implements Serializable {
 
     private int minAge;
     private int maxAge;
-    private String textContain;
-    private String nameContain;
     private boolean dogsOnly;
     private boolean catsOnly;
+    private  String location;
+    private String gender;
 
 
 
@@ -18,10 +19,10 @@ public class Filters {
     {
         this.dogsOnly = false;
         this.catsOnly = false;
-        this.textContain = null;
-        this.nameContain = null;
         this.minAge = Integer.MIN_VALUE;
         this.maxAge = Integer.MAX_VALUE;
+        this.location = "";
+        this.gender = "";
     }
 
     public boolean isCatsOnly() {
@@ -40,22 +41,6 @@ public class Filters {
         this.dogsOnly = dogsOnly;
     }
 
-    public String getNameContain() {
-        return nameContain;
-    }
-
-    public void setNameContain(String nameContain) {
-        this.nameContain = nameContain;
-    }
-
-    public String getTextContain() {
-        return textContain;
-    }
-
-    public void setTextContain(String textContain) {
-        this.textContain = textContain;
-    }
-
     public int getMaxAge() {
         return maxAge;
     }
@@ -72,13 +57,31 @@ public class Filters {
         this.minAge = minAge;
     }
 
+    public String getLocation() { return location; }
 
+    public void setLocation(String location) { this.location = location; }
 
-    public Query buildQuery(Query query)
-    {
+    public String getGender() { return gender; }
+
+    public void setGender(String gender) { this.gender = gender; }
+
+    public Query buildQuery(Query query) {
         //TODO: replace with defines of fields!
         //TODO: build more fields queries
-        return query.whereLessThan("age",this.maxAge).whereGreaterThan("age",this.minAge);
+        query = query.whereLessThan("age", this.maxAge).whereGreaterThan("age", this.minAge);
+        if (!this.location.equals("")) {
+            query.whereEqualTo("location", this.location);
+        }
+        if(this.dogsOnly){
+            query.whereEqualTo("dogOrCat","Dog");
+        }
+        else if (this.catsOnly){
+            query.whereEqualTo("dogOrCat","Cat");
+        }
+        if(!this.gender.equals("")){
+            query.whereEqualTo("sex", this.gender);
+        }
+        return query;
     }
 
 
