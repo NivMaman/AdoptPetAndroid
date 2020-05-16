@@ -58,6 +58,13 @@ public class MyPetsActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        RefreshMyPetsList();
+    }
+
     public void RefreshMyPetsList()
     {
         petAdapter.readMyPetsFromDb(user.getUid());
