@@ -69,4 +69,6 @@ public class MyPetsActivity extends AppCompatActivity {
     {
         petAdapter.readMyPetsFromDb(user.getUid());
     }
+    public void swipeLeft(){bottomNavigationView.setSelectedItemId(R.id.add_pet);}
+
 }

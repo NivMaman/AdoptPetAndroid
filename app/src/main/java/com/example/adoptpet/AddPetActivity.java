@@ -40,6 +40,8 @@ public class AddPetActivity extends AppCompatActivity {
     protected ArrayList<Uri> imagePathList;
     protected ImageView[] picturesView;
     protected AutoCompleteTextView locationTextView;
+    protected OnSwipeTouchListener onSwipeTouchListener;
+
 
     protected final int PICK_IMAGE_REQUEST = 71;
     protected static final String TAG = "AddPetActivity";
@@ -92,6 +94,8 @@ public class AddPetActivity extends AppCompatActivity {
         pic1.setOnClickListener(getSelectPictureListener());
         addToDb.setOnClickListener(getAddToDbListener());
         freeTextEditText.setOnKeyListener(getFreeTextOnKeyListener());
+        /*mainView.setOnTouchListener(this);
+            onSwipeTouchListener = new OnSwipeTouchListener(this, findViewById(R.id.relativeLayout));*/
 
 
         // Get a reference to the AutoCompleteTextView in the layout
@@ -229,6 +233,8 @@ public class AddPetActivity extends AppCompatActivity {
     {
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
+    public void swipeLeft(){navigateToHomeActivity();}
+    public void swipeRight(){bottomNavigationView.setSelectedItemId(R.id.my_pets);}
 }
 
 

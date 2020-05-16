@@ -40,13 +40,6 @@ public class PetAdapter extends RecyclerView.Adapter<PetViewHolder>{
     public void onBindViewHolder(@NonNull PetViewHolder holder, int position) {
         Pet pet = petList.get(position);
         holder.bindNewPet(pet,position,this);
-        int currentColor;
-        if(pet.isCat())
-            currentColor = ContextCompat.getColor(context, R.color.recycler_item_cat_bg);
-        else
-            currentColor = ContextCompat.getColor(context, R.color.recycler_item_dog_bg);
-
-        holder.getLayout().setBackgroundColor(currentColor);
     }
 
     @Override

@@ -77,4 +77,5 @@ public class HomeActivity extends AppCompatActivity {
             petAdapter.readPetsFromDbByFilter(filters);
         }
     }
+    public void swipeRight(){bottomNavigationView.setSelectedItemId(R.id.add_pet);}
 }
