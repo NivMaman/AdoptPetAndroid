@@ -1,6 +1,8 @@
 package com.example.adoptpet;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -29,8 +31,8 @@ public class PetViewHolder extends RecyclerView.ViewHolder implements View.OnCli
 
 
     private final String logTagClass = "PetViewHolder";
-    private final String AGE_TXT_PREFIX = "age - ";
-    private final String LOCATION_TXT_PREFIX = "location - ";
+    private final String AGE_TXT_PREFIX = "Age - ";
+    private final String LOCATION_TXT_PREFIX = "Location - ";
 
     public static final String petExtraKey = "pet";
 
@@ -79,14 +81,33 @@ public class PetViewHolder extends RecyclerView.ViewHolder implements View.OnCli
         txtLocation.setText(LOCATION_TXT_PREFIX + pet.getLocation());
 
         DBWrapper.imageViewLoadUri(this.imagePetMain, pet.getMainPictureUri());
-        DBWrapper.imageViewLoadUri(this.imageGender , pet.genderIconUri());
+        this.imageGender.setImageURI(pet.genderIconUri());
+        //DBWrapper.imageViewLoadUri(this.imageGender , pet.genderIconUri());
 
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBWrapper.removePet(pet.getDocumentReference());
-                petAdapter.getPetList().remove(position);
-                petAdapter.notifyDataSetChanged();
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case DialogInterface.BUTTON_POSITIVE:
+                                DBWrapper.removePet(pet.getDocumentReference());
+                                petAdapter.getPetList().remove(position);
+                                petAdapter.notifyDataSetChanged();
+                                break;
+
+                            case DialogInterface.BUTTON_NEGATIVE:
+
+                                break;
+                        }
+                    }
+                };
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                        .setNegativeButton("No", dialogClickListener).show();
+
             }
         });
     }

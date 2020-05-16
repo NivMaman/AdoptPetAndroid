@@ -6,20 +6,14 @@
     android:id="@+id/pet_extended_view_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageButton
-        android:id="@+id/exitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#0000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/com_facebook_close" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/pet_extended_card_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="150dp"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="4dp"
         app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/pet_extended_view_layout"
         app:layout_constraintEnd_toEndOf="@+id/pet_extended_view_layout"
@@ -30,7 +24,6 @@
             android:id="@+id/imageSlider"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/small_dimen"
             app:sliderAnimationDuration="600"
             app:sliderAutoCycleDirection="back_and_forth"
             app:sliderAutoCycleEnabled="true"
@@ -52,7 +45,8 @@
         android:id="@+id/ext_view_txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="name - "
+        android:text="Name - "
+        android:layout_marginStart="4dp"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pet_extended_card_view" />
@@ -61,7 +55,8 @@
         android:id="@+id/ext_view_txt_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="age - "
+        android:text="Age - "
+        android:layout_marginStart="4dp"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ext_view_txt_name" />
@@ -71,7 +66,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
-        android:text="kind - "
+        android:text="Kind - "
+        android:layout_marginStart="4dp"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ext_view_txt_age" />
@@ -80,8 +76,9 @@
         android:id="@+id/ext_view_txt_contact_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="contact name -  1234567890"
+        android:text="Contact name -  1234567890"
         android:textSize="12sp"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -89,7 +86,8 @@
         android:id="@+id/ext_view_txt_free_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="free text -"
+        android:text="Free text -"
+        android:layout_marginStart="4dp"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ext_view_txt_kind" />
@@ -98,52 +96,41 @@
         android:id="@+id/ext_view_txt_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="location - "
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/ext_view_txt_phone_number"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/ext_view_txt_phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="phone number - 05863838988"
+        android:text="Location - "
+        android:layout_marginStart="4dp"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/ext_view_txt_contact_name"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <ImageView
         android:id="@+id/ext_view_img_gender"
-        android:layout_width="25dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ext_view_txt_gender"
+        app:layout_constraintTop_toBottomOf="@+id/pet_extended_card_view"
         app:srcCompat="@drawable/female_icon" />
 
-    <TextView
-        android:id="@+id/ext_view_txt_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="gender"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pet_extended_card_view" />
+
 
     <ImageButton
         android:id="@+id/ext_view_button_whats"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/whatsapp_logo" />
+        android:background="@null"
+        />
 
     <ImageButton
         android:id="@+id/ext_view_button_call"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@null"
+        android:src="@drawable/ic_call_black_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ext_view_button_whats"
-        app:srcCompat="@android:drawable/sym_call_outgoing" />
+        app:layout_constraintEnd_toStartOf="@+id/ext_view_button_whats" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

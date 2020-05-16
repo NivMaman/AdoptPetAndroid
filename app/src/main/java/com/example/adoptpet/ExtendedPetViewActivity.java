@@ -18,7 +18,7 @@ import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
 public class ExtendedPetViewActivity extends AppCompatActivity {
-    private ImageButton exitButton;
+    //private ImageButton exitButton;
     private TextView txtAge;
     private TextView txtName;
     private TextView txtLocation;
@@ -34,13 +34,13 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
 
     // string constant definitions
     private final String logTagClass = "ExtendedPetViewActivity";
-    private final String AGE_TXT_PREFIX = "age - ";
-    private final String NAME_TXT_PREFIX = "name - ";
-    private final String LOCATION_TXT_PREFIX = "location - ";
-    private final String CONTACT_NAME_TXT_PREFIX = "contact name - ";
-    private final String PHONE_NUM_TXT_PREFIX = "phone number - ";
-    private final String FREE_TEXT_TXT_PREFIX = "description - ";
-    private final String KIND_TXT_PREFIX = "kind - ";
+    private final String AGE_TXT_PREFIX = "Age - ";
+    private final String NAME_TXT_PREFIX = "Name - ";
+    private final String LOCATION_TXT_PREFIX = "Location - ";
+    private final String CONTACT_NAME_TXT_PREFIX = "Contact name - ";
+    private final String PHONE_NUM_TXT_PREFIX = "Phone number - ";
+    private final String FREE_TEXT_TXT_PREFIX = "Description - ";
+    private final String KIND_TXT_PREFIX = "Kind - ";
 
 
 
@@ -54,13 +54,13 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
         txtAge = (TextView)findViewById(R.id.ext_view_txt_age);
         txtLocation = (TextView)findViewById(R.id.ext_view_txt_location);
         txtContact = (TextView)findViewById(R.id.ext_view_txt_contact_name);
-        txtPhoneNumber = (TextView)findViewById(R.id.ext_view_txt_phone_number);
         txtFreeText = (TextView)findViewById(R.id.ext_view_txt_free_text);
         txtKind = (TextView)findViewById(R.id.ext_view_txt_kind);
         imgGender = (ImageView) findViewById(R.id.ext_view_img_gender);
         callButton = (ImageButton)findViewById(R.id.ext_view_button_call);
         whatsappButton = (ImageButton)findViewById(R.id.ext_view_button_whats);
-        exitButton = (ImageButton)findViewById(R.id.exitButton);
+        DBWrapper.imageViewLoadUri(whatsappButton, Uri.parse("android.resource://com.example.adoptpet/" + R.drawable.whatsapp_logo));
+        //exitButton = (ImageButton)findViewById(R.id.exitButton);
         sliderView = (SliderView)findViewById(R.id.imageSlider);
         ImageSliderAdapter imageAdapter = new ImageSliderAdapter(this);
         sliderView.setSliderAdapter(imageAdapter);
@@ -70,25 +70,25 @@ public class ExtendedPetViewActivity extends AppCompatActivity {
         final Pet pet = (Pet) getIntent().getSerializableExtra(PetViewHolder.petExtraKey);
 
         imageAdapter.renewItems(pet.getPicturesUriArr());
-        DBWrapper.imageViewLoadUri(imgGender,pet.genderIconUri());
+        imgGender.setImageURI(pet.genderIconUri());
+        //DBWrapper.imageViewLoadUri(imgGender,pet.genderIconUri());
         txtName.setText(NAME_TXT_PREFIX +pet.getName());
         txtAge.setText(AGE_TXT_PREFIX + pet.getAge());
         txtLocation.setText(LOCATION_TXT_PREFIX + pet.getLocation());
         txtContact.setText(CONTACT_NAME_TXT_PREFIX + pet.getContactName());
         txtFreeText.setText(FREE_TEXT_TXT_PREFIX + pet.getFreeText());//TODO: check on null
         txtKind.setText(KIND_TXT_PREFIX + pet.getKind());
-        txtPhoneNumber.setText(PHONE_NUM_TXT_PREFIX + pet.getPhoneNumber());
 
 
 
 
 
-        exitButton.setOnClickListener(new View.OnClickListener() {
+        /*exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
-        });
+        });*/
 
         whatsappButton.setOnClickListener(new View.OnClickListener() {
             @Override

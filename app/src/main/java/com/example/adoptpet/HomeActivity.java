@@ -90,4 +90,5 @@ public class HomeActivity extends AppCompatActivity {
             isFiltered = !isFiltered;
         }
     }
+    public void swipeRight(){bottomNavigationView.setSelectedItemId(R.id.add_pet);}
 }
