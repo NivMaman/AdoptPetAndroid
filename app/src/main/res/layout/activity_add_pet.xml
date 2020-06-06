@@ -11,6 +11,7 @@
         android:id="@+id/navigationBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@menu/selector"
         app:itemTextColor="@menu/selector"
@@ -27,14 +28,12 @@
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/navigationBar"
-        android:background="@color/colorPrimary">
+        app:layout_constraintBottom_toTopOf="@+id/navigationBar">
 
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:background="@color/colorPrimary"
             android:orientation="vertical"
             android:padding="@dimen/activity_horizontal_margin"
             tools:ignore="MissingConstraints">
@@ -49,8 +48,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:hint="@string/hint_name"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -65,8 +64,8 @@
                     android:hint="@string/age"
                     android:inputType="numberDecimal"
                     android:maxLength="4"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <RadioGroup
@@ -129,8 +128,8 @@
                     android:layout_marginBottom="10dp"
                     android:hint="@string/pet_kind"
                     android:inputType="text"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -144,8 +143,8 @@
                     android:layout_marginBottom="10dp"
                     android:hint="@string/contact_number"
                     android:inputType="number"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -159,8 +158,8 @@
                     android:layout_marginBottom="10dp"
                     android:hint="@string/contact_name"
                     android:inputType="text"
-                    android:textColor="@android:color/white"
-                    android:textColorHint="@android:color/white" />
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -177,9 +176,8 @@
                     android:scrollbars="vertical"
                     android:gravity="top|left"
                     android:lines="5"
-                    android:textColor="@android:color/white"
-
-                    android:textColorHint="@android:color/white" />
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@android:color/darker_gray" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <AutoCompleteTextView
@@ -254,9 +252,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
-                android:background="@color/white"
+                android:background="@color/colorPrimary"
                 android:text="@string/add_db"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/background_light"
                 android:layout_marginBottom="@dimen/small_dimen"/>
 
         </LinearLayout>

@@ -11,7 +11,6 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/colorPrimary"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin"
         tools:ignore="MissingConstraints">
@@ -23,9 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="@string/pet_kind"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textColorHint="@android:color/white" />
+            android:textColorHint="@android:color/darker_gray" />
 
         <RadioGroup
             android:id="@+id/pet_kind"
@@ -54,7 +53,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/background_light"/>
+            android:background="@android:color/holo_blue_dark"/>
 
         <TextView
             android:id="@+id/gender"
@@ -64,8 +63,8 @@
             android:layout_marginTop="10dp"
             android:hint="@string/gender"
             android:textSize="20sp"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
         <RadioGroup
             android:id="@+id/pet_sex"
@@ -94,7 +93,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/background_light"/>
+            android:background="@android:color/holo_blue_dark"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -103,8 +102,8 @@
             android:layout_marginTop="10dp"
             android:hint="@string/age"
             android:textSize="20sp"
-            android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white" />
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
         <com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar
             android:id="@+id/rangeSeekbar"
@@ -114,8 +113,8 @@
             app:min_value="0"
             app:max_value="50"
             app:steps="1"
-            app:bar_color="#F7BB88"
-            app:bar_highlight_color="#E07416"
+            app:bar_color="@color/colorPrimary"
+            app:bar_highlight_color="@color/bg_main"
             app:data_type="_integer"/>
 
 
@@ -133,7 +132,7 @@
                 android:layout_marginBottom="10dp"
                 android:textSize="15sp"
                 android:hint="0"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/black" />
 
             <TextView
                 android:id="@+id/max"
@@ -144,14 +143,14 @@
                 android:hint="50"
                 android:layout_marginBottom="10dp"
                 android:textSize="15sp"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/black" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/background_light"/>
+            android:background="@android:color/holo_blue_dark"/>
 
         <AutoCompleteTextView
             android:id="@+id/location"
@@ -167,9 +166,9 @@
             android:id="@+id/run_filter"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/colorPrimary"
             android:text="@string/apply"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/background_light"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </LinearLayout>
