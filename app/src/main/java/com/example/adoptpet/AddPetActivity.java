@@ -40,7 +40,6 @@ public class AddPetActivity extends AppCompatActivity {
     protected ArrayList<Uri> imagePathList;
     protected ImageView[] picturesView;
     protected AutoCompleteTextView locationTextView;
-    protected OnSwipeTouchListener onSwipeTouchListener;
 
 
     protected final int PICK_IMAGE_REQUEST = 71;
@@ -94,8 +93,6 @@ public class AddPetActivity extends AppCompatActivity {
         pic1.setOnClickListener(getSelectPictureListener());
         addToDb.setOnClickListener(getAddToDbListener());
         freeTextEditText.setOnKeyListener(getFreeTextOnKeyListener());
-        /*mainView.setOnTouchListener(this);
-            onSwipeTouchListener = new OnSwipeTouchListener(this, findViewById(R.id.relativeLayout));*/
 
 
         // Get a reference to the AutoCompleteTextView in the layout
