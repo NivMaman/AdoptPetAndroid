@@ -6,6 +6,6 @@
         android:title="TODO" />
     <item
         android:state_selected="false"
-        android:color="@color/colorPrimaryDark"
+        android:color="@color/AppBars"
         android:title="TODO" />
 </selector>

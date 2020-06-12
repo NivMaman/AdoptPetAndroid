@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00bcd4</color>
-    <color name="colorPrimaryDark">#0097a7</color>
-    <color name="colorAccent">#f2fe71</color>
+    <color name="colorPrimary">#235E84</color>
+    <color name="colorPrimaryDark">#235E84</color>
+    <color name="colorAccent">#235E84</color>
+    <color name="AppBars">#65FFFFFF</color>
     <color name="bg_login">#26ae90</color>
     <color name="transparent">#00000000</color>
     <color name="gradStart">#19aa8b</color>
