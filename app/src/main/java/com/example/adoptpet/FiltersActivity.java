@@ -68,10 +68,10 @@ public class FiltersActivity extends AppCompatActivity {
                 if (kindGroup.getCheckedRadioButtonId() != -1){
                     kindButton=(RadioButton)findViewById(kindGroup.getCheckedRadioButtonId());
                     String kind = kindButton.getText().toString();
-                    if (kind.equals("Dog")){
+                    if (kind.equals(Pet.PET_DOG_STRING)){
                         filters.setDogsOnly(true);
                     }
-                    else if (kind.equals("Cat")){
+                    else if (kind.equals(Pet.PET_CAT_STRING)){
                         filters.setCatsOnly(true);
                     }
                 }

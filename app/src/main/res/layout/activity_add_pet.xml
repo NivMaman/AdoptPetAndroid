@@ -49,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:hint="@string/hint_name"
+                    android:maxLines="1"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -143,6 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:hint="@string/contact_number"
+                    android:maxLines="1"
                     android:inputType="number"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white" />
@@ -158,6 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:hint="@string/contact_name"
+                    android:maxLines="1"
                     android:inputType="text"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white" />

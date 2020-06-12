@@ -70,16 +70,16 @@ public class Filters implements Serializable {
         //TODO: build more fields queries
         query = query.whereLessThan("age", this.maxAge).whereGreaterThan("age", this.minAge);
         if (!this.location.equals("")) {
-            query.whereEqualTo("location", this.location);
+            query = query.whereEqualTo("location", this.location);
         }
         if(this.dogsOnly){
-            query.whereEqualTo("dogOrCat","Dog");
+            query = query.whereEqualTo("dogOrCat",Pet.PET_DOG_STRING);
         }
         else if (this.catsOnly){
-            query.whereEqualTo("dogOrCat","Cat");
+            query = query.whereEqualTo("dogOrCat",Pet.PET_CAT_STRING);
         }
         if(!this.gender.equals("")){
-            query.whereEqualTo("sex", this.gender);
+            query = query.whereEqualTo("sex", this.gender);
         }
         return query;
     }

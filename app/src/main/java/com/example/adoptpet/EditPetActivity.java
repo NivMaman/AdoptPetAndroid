@@ -53,17 +53,23 @@ public class EditPetActivity extends AddPetActivity {
         super.addToDb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Pet pet = CollectPetInfo();
+                // Iterate over imagePathList find already uploaded to DB images
+                // Those images are removed from the list and added to pet instance directly
                 for(int i=0;i<imagePathList.size();i++)
                 {
-                    Log.i(logTagClass,"uri " + imagePathList.get(i).toString());
-                    if(imagePathList.get(i).toString().contains("https://"))
+                    String uri = imagePathList.get(i).toString();
+                    Log.i(logTagClass,"uri " + uri);
+                    if(uri.contains("https://"))
                     {
+                        pet.addUriReference(uri);
                         imagePathList.remove(i);
+
                     }
 
                 }
                 Log.i(logTagClass,"imagePathList.size() = " + imagePathList.size());
-                DBWrapper.editPet(originalPet.getDocumentReference(),CollectPetInfo(), user, imagePathList, EditPetActivity.this);
+                DBWrapper.editPet(originalPet.getDocumentReference(),pet, user, imagePathList, EditPetActivity.this);
             }
         });
 

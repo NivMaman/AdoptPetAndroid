@@ -4,6 +4,8 @@ import com.example.adoptpet.R;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AddPetActivity extends AppCompatActivity {
 
@@ -95,14 +99,82 @@ public class AddPetActivity extends AppCompatActivity {
         freeTextEditText.setOnKeyListener(getFreeTextOnKeyListener());
 
 
+
+
+        fullNameEditText.addTextChangedListener(new TextValidator(fullNameEditText) {
+            @Override public String validate(TextView textView, String text) {
+                if(text.isEmpty())
+                    return "Must be filled";
+                if(text.length() > 20)
+                    return "Too long name";
+                if(text.length() < 3)
+                    return "Too short name";
+                return null;
+            }
+        });
+        contactNameEditText.addTextChangedListener(new TextValidator(contactNameEditText) {
+            @Override public String validate(TextView textView, String text) {
+                if(text.isEmpty())
+                    return "Must be filled";
+                if(text.length() > 20)
+                    return "Too long name";
+                if(text.length() < 3)
+                    return "Too short name";
+                return null;
+            }
+        });
+        contactNumberEditText.addTextChangedListener(new TextValidator(contactNumberEditText) {
+            @Override public String validate(TextView textView, String text) {
+                if(text.isEmpty())
+                    return "Must be filled";
+                if(text.length() > 10)
+                    return "Too long number";
+                if(text.length() < 6)
+                    return "Too short number";
+
+
+                return null;
+            }
+        });
+        ageEditText.addTextChangedListener(new TextValidator(ageEditText) {
+            @Override public String validate(TextView textView, String text) {
+                if(text.isEmpty())
+                    return "Must be filled";
+                if(Double.parseDouble(text) > 30)
+                    return "Invalid age";
+                return null;
+            }
+        });
+
+
+
         // Get a reference to the AutoCompleteTextView in the layout
         locationTextView = (AutoCompleteTextView) findViewById(R.id.location);
         // Get the string array
-        String[] cities = getResources().getStringArray(R.array.cities_array);
+        final String[] cities = getResources().getStringArray(R.array.cities_array);
         // Create the adapter and set it to the AutoCompleteTextView
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, cities);
         locationTextView.setAdapter(adapter);
+        locationTextView.addTextChangedListener(new TextValidator(locationTextView) {
+            @Override public String validate(TextView textView, String text) {
+                /* Validation code here */
+                if(text.length() == 0)
+                    return "Must be filled";
+                return null;
+            }
+        });
+        locationTextView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus == false) {
+                    String text = ((TextView)view).getText().toString();
+                    if(Arrays.asList(cities).contains(text) == false && text.length() != 0)
+                        ((TextView)view).setText("");
+
+                }
+            }
+        });
 
 
     }
@@ -153,9 +225,16 @@ public class AddPetActivity extends AppCompatActivity {
         return new Pet(name, age, dogOrCat, sex, petKind,freeText, location, number, contact_name);
     }
     private View.OnClickListener getAddToDbListener() {
+
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(fullNameEditText.getError()!=null || contactNumberEditText.getError()!=null || contactNameEditText.getError()!=null || ageEditText.getError() != null
+                        || locationTextView.getError() != null )
+                {
+                        Toast.makeText(getApplication(), "incorrect input", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 try{
                     DBWrapper.addNewPet(CollectPetInfo(), user, imagePathList, AddPetActivity.this);
                 }catch(Exception e){
@@ -232,6 +311,37 @@ public class AddPetActivity extends AppCompatActivity {
     }
     public void swipeLeft(){navigateToHomeActivity();}
     public void swipeRight(){bottomNavigationView.setSelectedItemId(R.id.my_pets);}
+
+
+
+
+    public abstract class TextValidator implements TextWatcher {
+        private final TextView textView;
+
+        public TextValidator(TextView textView) {
+            this.textView = textView;
+            validateAndSetError();
+        }
+
+        public abstract String validate(TextView textView, String text);
+        private void validateAndSetError()
+        {
+            String validationMsg = validate(textView, textView.getText().toString());
+            textView.setError(validationMsg);
+        }
+
+        @Override
+        final public void afterTextChanged(Editable s) {
+            String text = textView.getText().toString();
+            validateAndSetError();
+        }
+
+        @Override
+        final public void beforeTextChanged(CharSequence s, int start, int count, int after) { /* Don't care */ }
+
+        @Override
+        final public void onTextChanged(CharSequence s, int start, int before, int count) { /* Don't care */ }
+    }
 }
 
 

@@ -42,6 +42,9 @@ public class Pet implements Serializable {
     private static final String KIND_MAP_KEY= "kind";
     private static final String FREE_TEXT_MAP_KEY = "freeText";
     private static final String PIC_LIST_MAP_KEY= "picturesList";
+    public static final String PET_DOG_STRING= "Dog";
+    public static final String PET_CAT_STRING= "Cat";
+
 
 
     public Pet(String name, double age, String dogOrCat, String sex, String kind, String freeText, String location, String phoneNumber, String contactName) {
@@ -118,7 +121,7 @@ public class Pet implements Serializable {
         {
             //defaults pictures
             int drawable;
-            if(dogOrCat.equals("Dog"))
+            if(dogOrCat.equals(PET_DOG_STRING))
             {
                 //dog
                 drawable = R.drawable.dog_default;
@@ -172,14 +175,14 @@ public class Pet implements Serializable {
     }
 
     public boolean isCat() {
-        if(dogOrCat.equals("Dog")){
-            return false;
+        if(dogOrCat.equals(PET_CAT_STRING)){
+            return true;
         }
-        return true;
+        return false;
     }
 
     public boolean isDog() {
-        if(dogOrCat.equals("Dog")){
+        if(dogOrCat.equals(PET_DOG_STRING)){
             return true;
         }
         return false;
